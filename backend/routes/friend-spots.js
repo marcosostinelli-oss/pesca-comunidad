@@ -1,22 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
 const { authenticateToken } = require('../middleware/auth');
-
-// Configuración de la base de datos
-const dbPath = path.join(__dirname, '..', 'pesca-comunidad.db');
-const db = new sqlite3.Database(dbPath);
-
-// 🔧 PROMISIFY PARA LAS RUTAS
-function dbAll(sql, params = []) {
-    return new Promise((resolve, reject) => {
-        db.all(sql, params, (err, rows) => {
-            if (err) reject(err);
-            else resolve(rows);
-        });
-    });
-}
+// ✅ Usar la conexión compartida y optimizada (WAL, timeouts, cache) en vez de abrir una propia
+const { dbAll } = require('../database');
 
 // ==================================================
 // ENDPOINTS DE LA API PARA SPOTS DE AMIGOS
