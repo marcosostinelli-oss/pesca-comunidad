@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ quiet: true });
 
 const express = require('express');
 const cors = require('cors');
@@ -18,7 +18,23 @@ if (!process.env.JWT_SECRET) {
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // Middleware
-app.use(cors());
+// 🛡️ CORS restringido a orígenes conocidos (configurable por .env)
+// En local, agregá ALLOWED_ORIGINS=http://localhost:5001 a tu .env si hace falta
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5001,http://127.0.0.1:5001')
+    .split(',')
+    .map(origin => origin.trim());
+
+app.use(cors({
+    origin: (origin, callback) => {
+        // Permitir pedidos sin origin (apps móviles, Postman, curl) y los de la lista permitida
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.warn(`⚠️ CORS bloqueado para origin: ${origin}`);
+            callback(new Error('No permitido por CORS'));
+        }
+    }
+}));
 app.use(express.json());
 
 // 🔧 MIDDLEWARE PARA MANEJAR TIMEOUTS GLOBALES
