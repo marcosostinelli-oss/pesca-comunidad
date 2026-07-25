@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'pesca-comunidad-secret-key-2024-segura';
+// La clave secreta se carga desde .env (server.js corre dotenv.config() antes de importar este módulo)
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Conectar a la base de datos (para consultar si es guía)
 const dbPath = path.join(__dirname, '../pesca-comunidad.db');

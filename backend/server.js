@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
@@ -9,7 +11,11 @@ const app = express();
 const PORT = 5001;
 
 // 🔐 Configuración de seguridad
-const JWT_SECRET = process.env.JWT_SECRET || 'pesca-comunidad-secret-key-2024-segura';
+if (!process.env.JWT_SECRET) {
+    console.error('❌ Falta la variable de entorno JWT_SECRET. Creá un archivo .env en /backend con JWT_SECRET=tu_clave_secreta');
+    process.exit(1);
+}
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Middleware
 app.use(cors());
@@ -498,7 +504,7 @@ app.get('*', (req, res, next) => {
 app.listen(PORT, () => {
     console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
     console.log(`📁 Frontend modular servido desde: ${path.join(__dirname, '../frontend')}`);
-    console.log(`🔐 JWT Secret: ${JWT_SECRET.substring(0, 10)}...`);
+    console.log(`🔐 JWT Secret: configurado correctamente ✅`);
     console.log(`💾 Base de datos: ${dbPath}`);
     console.log('\n🎣 Endpoints disponibles:');
     console.log(`  POST /api/auth/register    - Registrar nuevo usuario`);
