@@ -1,0 +1,960 @@
+/* ==================================================
+   RESPONSIVE - MOBILE FIRST OPTIMIZATION
+   ================================================== */
+
+/* ========== TABLETS (768px - 1024px) ========== */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+
+  .navbar-brand {
+    font-size: 1.25rem;
+  }
+
+  .card {
+    margin-bottom: 1.5rem;
+  }
+
+  .fishing-card {
+    border-radius: 12px;
+  }
+
+  .row > [class*="col-"] {
+    margin-bottom: 1.5rem;
+  }
+
+  /* ===== MAPS ===== */
+  #map,
+  .leaflet-container {
+    min-height: 450px !important;
+  }
+
+  #mapa-section {
+    overflow: visible !important;
+  }
+}
+
+/* ========== MOBILE (480px - 767px) ========== */
+@media (max-width: 767px) {
+  /* ===== GENERAL ===== */
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+    padding-bottom: 0;
+    margin-right: auto;
+  }
+
+  h1 {
+    font-size: 1.75rem !important;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+    margin-bottom: 0.75rem;
+  }
+
+  h3 {
+    font-size: 1.25rem !important;
+    margin-bottom: 0.75rem;
+  }
+
+  h4 {
+    font-size: 1.1rem !important;
+  }
+
+  p {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .lead {
+    font-size: 1rem !important;
+  }
+
+  /* ===== NAVBAR ===== */
+  .navbar {
+    padding: 0.75rem 0;
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .navbar-brand i {
+    margin-right: 0.25rem;
+  }
+
+  .navbar-collapse {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+  }
+
+  .navbar-nav .nav-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 0.75rem 0 !important;
+    color: #2563eb !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .navbar-nav .nav-link i {
+    margin-right: 0.5rem;
+  }
+
+  .navbar-collapse #auth-buttons {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .navbar-collapse #auth-buttons .btn {
+    width: 100%;
+    color: #2563eb !important;
+    border-color: #2563eb !important;
+    background: transparent !important;
+  }
+
+  .navbar-collapse #auth-buttons .btn-outline-light:hover,
+  .navbar-collapse #auth-buttons .btn-outline-secondary:hover {
+    background: #2563eb !important;
+    color: white !important;
+  }
+
+  .navbar-collapse #auth-buttons .btn-light {
+    background: #2563eb !important;
+    color: white !important;
+    border-color: transparent !important;
+  }
+
+  /* ===== DRAWER FLOTANTE MOBILE - MAP PAGE ===== */
+  /* Ocultar panel lateral completo en mobile */
+  .map-page-container .row > .col-md-4 {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 65vh;
+    background: white;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.75rem 1rem 4rem 1rem;
+    margin: 0 !important;
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Handle (tirador visual del drawer) */
+  .map-page-container .row > .col-md-4::before {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 5px;
+    background: #d1d5db;
+    border-radius: 3px;
+    margin: 0 auto 1rem;
+    cursor: grab;
+  }
+
+  .map-page-container .row > .col-md-4::before:active {
+    cursor: grabbing;
+  }
+
+  /* ===== BOTÓN FLOTANTE FAB (Agregar Spot) ===== */
+  .fab-add-spot {
+    position: fixed !important;
+    top: 100px !important;
+    bottom: auto !important;
+    right: 20px !important;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+    border: none;
+    color: white;
+    font-size: 28px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    z-index: 1001 !important;
+    transition: all 0.3s ease;
+  }
+
+  .fab-add-spot:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.6);
+  }
+
+  .fab-add-spot:active {
+    transform: scale(0.95);
+  }
+
+  /* Mapa ocupando casi toda la pantalla */
+  #full-map {
+    height: calc(100vh - 180px) !important;
+    min-height: 65vh !important;
+    border-radius: 0 !important;
+    width: 100%;
+  }
+
+  /* Hacer el mapa 100% del ancho */
+  .row > .col-md-8 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Card del mapa más compacta */
+  .row > .col-md-8 .card {
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .row > .col-md-8 .card-body {
+    padding: 0;
+  }
+
+  .row > .col-md-8 .card-body h5 {
+    display: none;
+  }
+
+  /* Contenido del drawer con scroll */
+  .map-page-container .row > .col-md-4 .card {
+    border-radius: 8px;
+    margin: 0 0 0.5rem 0;
+    box-shadow: none;
+    border: 1px solid #e5e7eb;
+    background-color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .map-page-container .row > .col-md-4 .card:first-of-type {
+    margin-top: 0;
+  }
+
+  .map-page-container .row > .col-md-4 .card-body {
+    padding: 0.6rem;
+    background-color: #ffffff;
+  }
+
+  .map-page-container .row > .col-md-4 .card-body h5 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #1f2937;
+  }
+
+  /* Botones en drawer - Más compactos */
+  .map-page-container .row > .col-md-4 .d-grid {
+    gap: 0.4rem;
+    padding: 0;
+    margin-bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .map-page-container .row > .col-md-4 .d-grid .btn {
+    width: 100%;
+    padding: 0.6rem 0.5rem !important;
+    font-size: 0.8rem;
+    min-height: 38px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .map-page-container .row > .col-md-4 .d-grid .btn-outline-info,
+  .map-page-container .row > .col-md-4 .d-grid .btn-outline-warning,
+  .map-page-container .row > .col-md-4 .d-grid .btn-outline-secondary {
+    grid-column: 1 / -1;
+  }
+
+  .map-page-container .row > .col-md-4 .d-grid .btn:active {
+    transform: scale(0.98);
+  }
+
+  .map-page-container .row > .col-md-4 .btn-success {
+    background-color: #10b981;
+    border-color: #059669;
+  }
+
+  .map-page-container .row > .col-md-4 .btn-success:hover {
+    background-color: #059669;
+  }
+
+  .map-page-container .row > .col-md-4 .btn-warning {
+    background-color: #f59e0b;
+    border-color: #d97706;
+  }
+
+  .map-page-container .row > .col-md-4 .btn-warning:hover {
+    background-color: #d97706;
+  }
+
+  .map-page-container .row > .col-md-4 .btn-info {
+    background-color: #0ea5e9;
+    border-color: #0284c7;
+  }
+
+  .map-page-container .row > .col-md-4 .btn-info:hover {
+    background-color: #0284c7;
+  }
+
+  /* Tabs de condiciones - Más compactos en mobile */
+  .map-page-container .row > .col-md-4 .btn-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+    margin: 0.5rem 0 0.75rem 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    width: 100%;
+  }
+
+  .map-page-container .row > .col-md-4 .btn-group .btn {
+    width: 100%;
+    padding: 0.5rem 0.4rem !important;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 6px;
+    background-color: #f3f4f6;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+    min-height: 36px;
+  }
+
+  .map-page-container .row > .col-md-4 .btn-group .btn.active {
+    background-color: #2563eb;
+    color: white;
+  }
+
+  /* Input de búsqueda - Más limpio */
+  .map-page-container .row > .col-md-4 .input-group {
+    display: flex;
+    gap: 0.3rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  .map-page-container .row > .col-md-4 .input-group input {
+    flex: 1;
+    font-size: 13px !important;
+    padding: 0.5rem 0.6rem !important;
+    border-radius: 6px;
+    min-height: 36px;
+    border: 1px solid #d1d5db;
+  }
+
+  .map-page-container .row > .col-md-4 .input-group button {
+    padding: 0.5rem 0.8rem !important;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    border-radius: 6px;
+    min-height: 36px;
+  }
+
+  /* Panel de clima - Etiquetas claras */
+  .map-page-container .row > .col-md-4 #weather-panel {
+    padding: 0.5rem;
+    background: #f9fafb;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    border: 1px solid #e5e7eb;
+  }
+
+  .map-page-container .row > .col-md-4 #weather-panel strong {
+    display: block;
+    margin-top: 0.4rem;
+    margin-bottom: 0.2rem;
+    color: #2563eb;
+    font-weight: 600;
+  }
+
+  .map-page-container .row > .col-md-4 #weather-panel strong:first-child {
+    margin-top: 0;
+  }
+
+  /* Links en drawer - Menos espacio */
+  .map-page-container .row > .col-md-4 .btn-outline-info,
+  .map-page-container .row > .col-md-4 .btn-outline-warning,
+  .map-page-container .row > .col-md-4 .btn-outline-secondary {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.8rem;
+    min-height: 36px;
+    width: 100%;
+  }
+
+  /* Labels claros en los inputs */
+  .map-page-container .row > .col-md-4 .form-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+  }
+
+  /* Sección de condiciones */
+  .map-page-container .row > .col-md-4 .card:first-child .card-body {
+    padding: 0.75rem 1rem;
+  }
+
+  .map-page-container .row > .col-md-4 .card:nth-child(2) .card-body {
+    padding: 0.75rem 1rem;
+  }
+
+  /* Títulos de secciones bien visibles */
+  .map-page-container .row > .col-md-4 .card h5 {
+    font-size: 1.1rem !important;
+    font-weight: 700;
+    color: #2563eb;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Separación visual entre secciones */
+  .map-page-container .row > .col-md-4 .card + .card {
+    margin-top: 1.5rem;
+  }
+
+  /* ===== LAYOUT ===== */
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .row > [class*="col-"] {
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .col-1, .col-2, .col-3, .col-4, .col-5, .col-6,
+  .col-7, .col-8, .col-9, .col-10, .col-11, .col-12,
+  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4,
+  .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8,
+  .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* ===== CARDS ===== */
+  .card {
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .fishing-card {
+    border-radius: 10px;
+  }
+
+  /* ===== FORMS ===== */
+  .form-control,
+  .form-select,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    font-size: 16px !important; /* Evita zoom automático en iOS */
+    padding: 0.75rem 1rem !important;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    min-height: 44px; /* Mejor touch target */
+    width: 100%;
+  }
+
+  .form-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .input-group {
+    flex-wrap: wrap;
+  }
+
+  .input-group > * {
+    margin-bottom: 0.5rem;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    padding: 0.625rem 1rem !important;
+    font-size: 0.95rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-success,
+  .btn-danger {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .btn-sm {
+    width: auto;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.85rem;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .btn-group > .btn {
+    width: 100%;
+  }
+
+  /* ===== MODAL ===== */
+  .modal-dialog {
+    margin: 1rem;
+    max-height: 90vh;
+  }
+
+  .modal-content {
+    border-radius: 12px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-body {
+    padding: 1rem;
+    overflow-y: auto;
+    flex: 1;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-header {
+    padding: 1rem;
+    flex-shrink: 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .modal-footer {
+    padding: 1rem;
+    flex-shrink: 0;
+    border-top: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+  }
+
+  /* Botones en modal */
+  .modal-footer .btn {
+    width: 100%;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.95rem;
+    font-weight: 600;
+    min-height: 44px;
+    margin-top: 0.5rem;
+  }
+
+  .modal-footer .btn:first-child {
+    margin-top: 0;
+  }
+
+  .modal-footer .btn-primary {
+    background-color: #2563eb;
+    border-color: #2563eb;
+  }
+
+  .modal-footer .btn-secondary {
+    background-color: #6b7280;
+    border-color: #6b7280;
+  }
+
+  /* Inputs en modal */
+  .modal-body input:not([type="checkbox"]):not([type="radio"]),
+  .modal-body textarea,
+  .modal-body select {
+    width: 100%;
+    padding: 0.75rem 0.875rem !important;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ===== AUTH CONTAINER ===== */
+  .auth-container {
+    max-width: 100%;
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .auth-tabs .nav-pills {
+    flex-direction: column;
+  }
+
+  .auth-tabs .nav-pills .nav-link {
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .auth-tabs .nav-pills .nav-link.active {
+    width: 100%;
+  }
+
+  #auth-form {
+    padding: 0;
+  }
+
+  #auth-form .form-control {
+    font-size: 16px;
+    padding: 0.875rem 1rem;
+  }
+
+  /* ===== MAPS ===== */
+  #map,
+  .leaflet-container {
+    height: 350px !important;
+    min-height: 350px !important;
+    max-height: 350px !important;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+  #mapa-section {
+    overflow: visible !important;
+  }
+
+  #mapa-section .card {
+    overflow: visible !important;
+  }
+
+  #mapa-section .card-body {
+    overflow: visible !important;
+    padding-bottom: 1.5rem;
+  }
+
+  .leaflet-control {
+    zoom: 80%;
+  }
+
+  /* ===== TABLES ===== */
+  table {
+    font-size: 0.85rem;
+  }
+
+  table th,
+  table td {
+    padding: 0.5rem !important;
+  }
+
+  .table-responsive {
+    border: 0;
+    margin-bottom: 1rem;
+  }
+
+  /* ===== ALERTS & BADGES ===== */
+  .alert {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+  }
+
+  .badge {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  /* ===== GRID RESPONSIVE ===== */
+  .row-cols-1 > * {
+    flex: 0 0 100%;
+  }
+
+  .row-cols-2 > * {
+    flex: 0 0 100%;
+  }
+
+  .row-cols-3 > * {
+    flex: 0 0 100%;
+  }
+
+  .row-cols-4 > * {
+    flex: 0 0 100%;
+  }
+
+  /* ===== SIMPLE SPOTS GRID - OCULTAR EN MOBILE MAP ===== */
+  /* Removido - mantener grilla visible pero colapasada */
+
+  /* ===== PADDING & MARGIN MOBILE ===== */
+  .mt-5, .my-5 {
+    margin-top: 1.5rem !important;
+  }
+
+  .mb-5, .my-5 {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .p-5 {
+    padding: 1rem !important;
+  }
+
+  .pt-5, .py-5 {
+    padding-top: 1.5rem !important;
+  }
+
+  .pb-5, .py-5 {
+    padding-bottom: 1.5rem !important;
+  }
+
+  /* ===== DROPDOWNS ===== */
+  .dropdown-menu {
+    min-width: 200px;
+  }
+
+  .dropdown-item {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  /* ===== HERO SECTION ===== */
+  .hero-section {
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .hero-section h1 {
+    font-size: 1.75rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 1.5rem 0;
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 0.85rem;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  .fade-in {
+    animation: fadeIn 0.3s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ===== VISIBILIDAD MOBILE ===== */
+  .d-none {
+    display: none !important;
+  }
+
+  .d-block {
+    display: block !important;
+  }
+
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+/* ========== EXTRA PEQUEÑO (menos de 480px) ========== */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 1.5rem !important;
+  }
+
+  h2 {
+    font-size: 1.25rem !important;
+  }
+
+  h3 {
+    font-size: 1.1rem !important;
+  }
+
+  body {
+    font-size: 13px;
+  }
+
+  .btn {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.9rem;
+  }
+
+  .card-body {
+    padding: 0.75rem;
+  }
+
+  .form-control {
+    font-size: 16px;
+    padding: 0.75rem !important;
+  }
+
+  #map,
+  .leaflet-container {
+    height: 280px !important;
+    min-height: 280px !important;
+    max-height: 280px !important;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+  }
+
+  /* ===== OCULTAR EN MOBILES PEQUEÑOS ===== */
+  .hide-xs {
+    display: none !important;
+  }
+}
+
+/* ========== LANDSCAPE MODE ========== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .navbar {
+    padding: 0.5rem 0;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body {
+    padding: 0.75rem;
+  }
+
+  #map,
+  .leaflet-container {
+    height: 250px !important;
+  }
+}
+
+/* ========== UTILITIES RESPONSIVE ========== */
+
+/* Espaciado responsivo */
+@media (max-width: 767px) {
+  .section-spacing {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .grid-spacing {
+    gap: 1rem !important;
+  }
+
+  /* Flex responsive */
+  .flex-mobile-column {
+    flex-direction: column !important;
+  }
+
+  .align-mobile-center {
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Text responsive */
+  .text-mobile-center {
+    text-align: center;
+  }
+
+  .text-mobile-left {
+    text-align: left;
+  }
+
+  /* Touch friendly */
+  a,
+  button,
+  .btn,
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Evitar zoom en inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}

@@ -1,0 +1,2652 @@
+/* ==================================================
+   PESCA COMUNIDAD - CSS MODERNO 2024 CORREGIDO
+   ================================================== */
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #60a5fa;
+  --secondary: #059669;
+  --accent: #f59e0b;
+  --dark: #1e293b;
+  --light: #f8fafc;
+  --gray: #64748b;
+  --gray-light: #f1f5f9;
+  --card-bg: #ffffff;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-fishing: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+/* ==================================================
+   RESET Y BASE MODERNA - CORREGIDO
+   ================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: var(--dark);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ==================================================
+   SISTEMA SSO UNIFICADO - NUEVO
+   ================================================== */
+
+/* Contenedor principal de autenticación */
+.auth-container {
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+/* Pestañas de Login/Registro */
+.auth-tabs .nav-pills {
+  background: var(--gray-light);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 2rem;
+}
+
+.auth-tabs .nav-pills .nav-link {
+  color: var(--gray);
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-tabs .nav-pills .nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.auth-tabs .nav-pills .nav-link.active {
+  color: white;
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow);
+  transform: translateY(-1px);
+}
+
+.auth-tabs .nav-pills .nav-link.active::before {
+  left: 0;
+}
+
+.auth-tabs .nav-pills .nav-link:not(.active):hover {
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Campos del formulario SSO */
+#auth-form .form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+#auth-form .form-label {
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 0.9rem;
+}
+
+#auth-form .form-control {
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#auth-form .form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+/* Campos dinámicos (solo en registro) */
+#name-field,
+#whatsapp-field {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  max-height: 100px;
+  overflow: hidden;
+}
+
+#name-field.d-none,
+#whatsapp-field.d-none {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Checkbox mostrar contraseña */
+.password-group {
+  position: relative;
+}
+
+.show-password {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--gray);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.show-password:hover {
+  color: var(--primary);
+}
+
+.show-password input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #cbd5e1;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.show-password input[type="checkbox"]:checked {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Botón de submit del SSO */
+.auth-submit {
+  background: var(--gradient-fishing);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-submit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.auth-submit:hover::before {
+  left: 100%;
+}
+
+.auth-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.auth-submit:active {
+  transform: translateY(-1px);
+}
+
+/* Enlaces de autenticación */
+.auth-links {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.auth-links a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.auth-links a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+  transform: translateY(-1px);
+}
+
+/* Modal de recuperación de contraseña */
+#passwordRecoveryModal .modal-content {
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-hover);
+}
+
+#passwordRecoveryModal .modal-header {
+  background: var(--gradient-primary);
+  color: white;
+  border-bottom: none;
+  padding: 1.5rem 2rem;
+}
+
+#passwordRecoveryModal .modal-title {
+  color: white;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+#passwordRecoveryModal .modal-body {
+  padding: 2rem;
+}
+
+#passwordRecoveryModal .btn-close {
+  filter: invert(1);
+  opacity: 0.8;
+}
+
+#passwordRecoveryModal .btn-close:hover {
+  opacity: 1;
+}
+
+/* Texto de ayuda */
+.fishing-text-primary {
+  color: var(--primary) !important;
+  font-weight: 600;
+}
+
+.form-text {
+  font-size: 0.8rem;
+  color: var(--gray);
+  margin-top: 0.25rem;
+}
+
+/* ==================================================
+   PERFIL DE USUARIO - NUEVA SECCIÓN
+   ================================================== */
+
+/* Encabezado del perfil */
+.profile-avatar {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.profile-avatar i {
+  font-size: 4rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Campos del perfil */
+.profile-field {
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.profile-field:last-child {
+  border-bottom: none;
+}
+
+.profile-field:hover {
+  background: rgba(241, 245, 249, 0.5);
+  border-radius: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin: 0 -12px;
+}
+
+.profile-value {
+  font-weight: 600;
+  color: var(--dark);
+  font-size: 1.1em;
+  line-height: 1.4;
+}
+
+.profile-field label {
+  font-size: 0.9em;
+  margin-bottom: 4px;
+  color: var(--gray);
+  font-weight: 500;
+  display: block;
+}
+
+/* Estados de los campos */
+.profile-value:empty::before {
+  content: "No especificado";
+  color: var(--gray);
+  font-style: italic;
+  font-weight: normal;
+}
+
+/* Formulario de edición de perfil */
+#profile-edit-form .form-control:disabled {
+  background-color: #f8fafc;
+  color: var(--gray);
+  cursor: not-allowed;
+  border-color: #e2e8f0;
+}
+
+#profile-edit-form .form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Transiciones entre modos */
+#profile-view,
+#profile-edit {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Botones específicos del perfil */
+.profile-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Experiencia formateada */
+.experience-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* ==================================================
+   NAVBAR MODERNA - CORREGIDA
+   ================================================== */
+
+.navbar {
+  background: var(--primary) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
+  padding: 0.75rem 0;
+}
+
+.navbar-dark {
+  background-color: var(--primary) !important;
+}
+
+.navbar.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-shadow: none;
+}
+
+.navbar-brand:hover {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.navbar-brand i {
+  color: white;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85) !important;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+}
+
+.navbar-nav .nav-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white !important;
+  transform: translateY(-1px);
+}
+
+.navbar-nav .nav-link.active {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ===== NAVBAR BURGER MENU - MOBILE ===== */
+.navbar-toggler {
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  padding: 0.5rem 0.75rem !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5) !important;
+  background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.navbar-toggler:active {
+  outline: none !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+  background-size: 100% 100% !important;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* CORRECCIÓN CRÍTICA: Botones de auth en navbar */
+#auth-buttons .btn {
+  margin: 0.125rem !important;
+  white-space: nowrap;
+  cursor: pointer !important;
+  color: white !important;
+}
+
+#auth-buttons .btn-outline-light {
+  border: 2px solid white !important;
+  color: white !important;
+  background: transparent !important;
+}
+
+#auth-buttons .btn-outline-light:hover {
+  background: white !important;
+  color: var(--primary) !important;
+}
+
+#auth-buttons .btn-light {
+  background: white !important;
+  color: var(--primary) !important;
+  border: 2px solid transparent !important;
+}
+
+#auth-buttons .btn-light:hover {
+  background: var(--primary) !important;
+  color: white !important;
+  border-color: white !important;
+}
+
+/* ==================================================
+   ESTILOS MEJORADOS PARA PESCA COMUNIDAD
+   ================================================== */
+
+/* Campos obligatorios con asterisco rojo */
+.required-field {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Mejoras en los formularios */
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* Notificaciones mejoradas */
+.alert.position-fixed {
+    animation: slideInRight 0.3s ease-out;
+    z-index: 9999;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Loading spinner mejorado */
+.loading-spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mejoras en los botones */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Mejoras en los cards de pesca */
+.fishing-card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.fishing-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* Mejoras en la experiencia móvil */
+@media (max-width: 768px) {
+    .alert.position-fixed {
+        left: 10px;
+        right: 10px;
+        top: 10px;
+        min-width: auto;
+    }
+}
+
+/* Estilos para el checkbox de mostrar contraseña */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    width: 100%;
+}
+
+.form-check-input {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+
+.form-check-input:checked {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.form-check-label {
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    flex: 1;
+    white-space: normal;
+}
+
+/* Mejoras en los resultados de búsqueda */
+.search-results {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    margin-top: 0.25rem;
+    background: white;
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+}
+
+.search-result-item {
+    padding: 0.75rem;
+    border-bottom: 1px solid #f8f9fa;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-result-item:hover {
+    background-color: #f8f9fa;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-main {
+    flex: 1;
+}
+
+.search-result-type .badge {
+    font-size: 0.7rem;
+    background-color: #6c757d;
+}
+
+/* ==================================================
+   LAYOUT Y CONTENEDORES - CORREGIDOS
+   ================================================== */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+#app {
+  min-height: calc(100vh - 80px);
+  padding: 1.5rem 0;
+}
+
+/* CORRECCIÓN CRÍTICA: Sistema de grid Bootstrap compatible */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -0.75rem;
+  margin-left: -0.75rem;
+}
+
+.row > * {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+}
+
+/* CORRECCIÓN: Columnas específicas - IMPORTANTE para formularios */
+.col-md-6 {
+  flex: 0 0 auto;
+  width: 50%;
+}
+
+.col-md-8 {
+  flex: 0 0 auto;
+  width: 66.66666667%;
+}
+
+.col-md-4 {
+  flex: 0 0 auto;
+  width: 33.33333333%;
+}
+
+.col-lg-8 {
+  flex: 0 0 auto;
+  width: 66.66666667%;
+}
+
+.col-lg-4 {
+  flex: 0 0 auto;
+  width: 33.33333333%;
+}
+
+/* CORRECCIÓN CRÍTICA: Centrado de formularios */
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.col-md-6.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* ==================================================
+   BOTONES MODERNOS - CORREGIDOS
+   ================================================== */
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* CORRECCIÓN: Botones específicos */
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: var(--shadow);
+  border: none;
+}
+
+.btn-success {
+  background: var(--gradient-success);
+  color: white;
+  box-shadow: var(--shadow);
+  border: none;
+}
+
+.btn-info {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: var(--shadow);
+  border: none;
+}
+
+.btn-fishing {
+  background: var(--gradient-fishing);
+  color: white;
+  box-shadow: var(--shadow);
+  border: none;
+}
+
+.btn-outline-light {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  box-shadow: none;
+}
+
+.btn-outline-light:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+  background: transparent;
+  border: 2px solid var(--gray);
+  color: var(--gray);
+  box-shadow: none;
+}
+
+.btn-outline-secondary:hover {
+  background: var(--gray);
+  color: white;
+}
+
+.btn-light {
+  background: white;
+  color: var(--primary);
+  box-shadow: var(--shadow);
+  border: 2px solid transparent;
+}
+
+.btn-light:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* CORRECCIÓN CRÍTICA: Botones de formulario */
+.btn-link {
+  background: transparent !important;
+  border: none !important;
+  color: var(--primary) !important;
+  text-decoration: underline !important;
+  box-shadow: none !important;
+}
+
+.btn-link:hover {
+  background: transparent !important;
+  color: var(--primary-dark) !important;
+  transform: none !important;
+}
+
+/* ==================================================
+   TARJETAS MODERNAS - CORREGIDAS
+   ================================================== */
+
+.card {
+  border: none;
+  border-radius: 16px;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.fishing-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.fishing-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-title {
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+/* ==================================================
+   TIPOGRAFÍA - CORREGIDA
+   ================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  color: var(--dark);
+}
+
+h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--dark);
+  margin-bottom: 1rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+  color: var(--dark);
+  margin-bottom: 0.75rem;
+}
+
+h6 {
+  font-size: 1rem;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+}
+
+.lead {
+  font-size: 1.1rem;
+  color: var(--gray);
+  margin-bottom: 2rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: var(--gray) !important;
+  font-size: 0.9rem;
+}
+
+/* ÚLTIMA REGLA - FORZAR ESTILO MODERNO PARA TÍTULOS */
+h1, h2, .card-title {
+    color: #1e293b !important;
+    background: none !important;
+    -webkit-text-fill-color: #1e293b !important;
+    font-weight: 600;
+    text-shadow: none !important;
+}
+
+/* Eliminar específicamente clases de éxito (verde) */
+.text-success {
+    color: #1e293b !important;
+}
+
+/* Si hay un gradiente aplicado, eliminarlo */
+h1:not([class*="gradient"]):not([style*="gradient"]) {
+    background: none !important;
+}
+
+/* ==================================================
+   FORMULARIOS MODERNOS - CORREGIDOS
+   ================================================== */
+
+.form-control {
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  width: 100%;
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-select {
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  width: 100%;
+}
+
+/* CORRECCIÓN CRÍTICA: Formularios de login/registro */
+#login-form,
+#register-form,
+#recovery-form {
+  width: 100%;
+}
+
+#login-form .btn,
+#register-form .btn,
+#recovery-form .btn {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+/* ==================================================
+   COMPONENTES ESPECÍFICOS - CORREGIDOS
+   ================================================== */
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Mapa */
+#map {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  min-height: 400px;
+}
+
+/* Paneles de Información */
+.weather-current, #moon-phase, #tides-info, #fishing-conditions {
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.weather-current:hover, #moon-phase:hover, #tides-info:hover, #fishing-conditions:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.weather-current {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+#moon-phase {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+}
+
+#tides-info {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+}
+
+#fishing-conditions {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  color: var(--dark);
+}
+
+/* ==================================================
+   ESTILOS PARA SPOTS DE PESCA - NUEVOS
+   ================================================== */
+
+/* Marcadores de spots personalizados */
+.spot-marker {
+    background: transparent;
+    border: none;
+}
+
+.spot-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    border: 2px solid white;
+    transition: all 0.3s ease;
+}
+
+.spot-icon:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+/* Marcador temporal (ubicación seleccionada) */
+.temp-spot-marker {
+    background: transparent;
+    border: none;
+}
+
+/* Popups de spots mejorados */
+.spot-popup {
+    max-width: 250px;
+}
+
+.spot-popup h6 {
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.spot-details {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.spot-details p {
+    margin-bottom: 0.25rem;
+}
+
+.spot-footer {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.spot-footer small {
+    display: block;
+    line-height: 1.3;
+}
+
+/* Badges para spots base */
+.spot-popup .badge {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.4rem;
+}
+
+/* Botón de agregar spot deshabilitado */
+#add-spot-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Leyenda de spots en el mapa */
+.spot-legend {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    border: 1px solid #e2e8f0;
+}
+
+.spot-legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+}
+
+.spot-legend-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Responsive para popups */
+@media (max-width: 768px) {
+    .spot-popup {
+        max-width: 200px;
+    }
+    
+    .spot-details {
+        font-size: 0.8rem;
+    }
+}
+
+/* Animaciones para nuevos spots */
+@keyframes spotPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.spot-marker.added {
+    animation: spotPulse 0.5s ease-in-out;
+}
+
+/* ==================================================
+   GRILLA DE SPOTS DESPLEGABLE - SOLUCIÓN DEFINITIVA
+   ================================================== */
+
+/* Contenedor principal - FIXED en la parte inferior */
+#simple-spots-grid {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: white !important;
+    border-top: 3px solid #007bff !important;
+    box-shadow: 0 -2px 20px rgba(0,0,0,0.15) !important;
+    z-index: 2000 !important;
+    
+    /* ESTADO CERRADO (solo muestra el header) */
+    max-height: 60px !important;
+    overflow: hidden !important;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    
+    /* Asegurar que esté visible */
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* ESTADO ABIERTO */
+#simple-spots-grid.grid-expanded {
+    max-height: 400px !important;
+    overflow-y: auto !important;
+    box-shadow: 0 -5px 30px rgba(0,0,0,0.25) !important;
+}
+
+/* Header del grid */
+.grid-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 12px 15px !important;
+    background: #f8f9fa !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    cursor: default !important;
+}
+
+.grid-header h5 {
+    margin: 0 !important;
+    font-size: 1.1rem !important;
+    color: #333 !important;
+    font-weight: 600 !important;
+}
+
+/* Botones de acción del grid */
+.grid-actions {
+    display: flex !important;
+    gap: 8px !important;
+    align-items: center !important;
+}
+
+/* Botón de toggle (chevron) */
+#toggle-grid {
+    cursor: pointer !important;
+    padding: 6px 12px !important;
+    border: 2px solid #6c757d !important;
+    background: white !important;
+    color: #6c757d !important;
+    border-radius: 4px !important;
+    transition: all 0.2s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    font-size: 0.9rem !important;
+}
+
+#toggle-grid:hover {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+    color: white !important;
+    transform: scale(1.05) !important;
+}
+
+/* Contenido del grid */
+.grid-content {
+    display: none;
+    padding: 10px 15px !important;
+    max-height: 340px !important;
+    overflow-y: auto !important;
+}
+
+/* Items del grid */
+.grid-spot-item {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 10px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+    transition: background-color 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+.grid-spot-item:hover {
+    background-color: #f8f9fa !important;
+}
+
+/* Scrollbar personalizado */
+.grid-content::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.grid-content::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+}
+
+.grid-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1 !important;
+    border-radius: 3px !important;
+}
+
+.grid-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8 !important;
+}
+
+/* ==================================================
+   ESTILOS PARA GRILLA SIMPLE - CORREGIDOS
+   ================================================== */
+
+#simple-spots-grid {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 3px solid #007bff;
+    box-shadow: 0 -2px 20px rgba(0,0,0,0.15);
+    z-index: 2000 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    
+    /* ✅ ESTILOS POR DEFECTO (CERRADO) */
+    height: auto;
+    max-height: 60px !important; /* Solo muestra el encabezado */
+    overflow: hidden !important;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* ✅ CUANDO LA GRILLA ESTÉ ABIERTA (debe coincidir con lo que hace simple-grid.js) */
+#simple-spots-grid.grid-expanded {
+    max-height: 400px !important; /* Altura cuando está abierto */
+    box-shadow: 0 -5px 30px rgba(0,0,0,0.25) !important;
+}
+
+/* Si simple-grid.js usa otra clase, cambia ".grid-expanded" por la clase que use */
+#simple-spots-grid.expanded {
+    max-height: 400px !important;
+    box-shadow: 0 -5px 30px rgba(0,0,0,0.25) !important;
+}
+
+/* Aumentar tamaño de texto en las labels del panel */
+.spot-type {
+    font-size: 14px !important;
+    padding: 6px 12px !important;
+    border-radius: 15px !important;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3) !important;
+}
+
+.spot-species {
+    font-size: 14px !important;
+    color: #2c5530 !important;
+    font-weight: 600 !important;
+    margin-left: 8px !important;
+    background: rgba(245, 158, 11, 0.1) !important;
+    padding: 4px 10px !important;
+    border-radius: 8px !important;
+    border-left: 3px solid #f59e0b !important;
+}
+
+.spot-details {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-top: 5px !important;
+    flex-wrap: wrap !important;
+}
+
+.spot-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.spot-actions .btn {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    opacity: 0.7 !important;
+    transition: all 0.2s ease !important;
+}
+
+.spot-actions .btn:hover {
+    opacity: 1 !important;
+    transform: scale(1.1) !important;
+}
+
+/* CORRECCIÓN CRÍTICA - BOTÓN ACTUALIZAR GRILLA */
+#refresh-grid {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    white-space: nowrap !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    padding: 6px 12px !important;
+}
+
+#refresh-grid .btn-text {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    font-size: 0.8rem !important;
+}
+
+.grid-actions .btn .btn-text {
+    display: inline !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#simple-spots-grid .grid-actions .btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    white-space: nowrap !important;
+}
+
+#simple-spots-grid .grid-actions .btn .btn-text {
+    display: inline !important;
+    visibility: visible !important;
+}
+
+.grid-actions .btn-outline-primary {
+    border: 2px solid #007bff !important;
+    color: #007bff !important;
+    background: transparent !important;
+}
+
+.grid-actions .btn-outline-primary:hover {
+    background: #007bff !important;
+    color: white !important;
+}
+
+/* ==================================================
+   ESTILOS PARA POPUPS DE SPOTS MEJORADOS
+   ================================================== */
+
+.spot-popup {
+    max-width: 300px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.spot-popup h6 {
+    color: #2c5530;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.spot-popup p {
+    margin: 4px 0;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.spot-popup strong {
+    color: #4a7c59;
+    font-weight: 600;
+}
+
+.spot-creator-info {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.spot-creator-info p {
+    margin: 2px 0;
+    font-size: 0.85em;
+}
+
+.user-profile-link {
+    color: #4a7c59;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.user-profile-link:hover {
+    color: #2c5530;
+    text-decoration: underline;
+    background-color: #e8f5e8;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.badge {
+    font-size: 0.7em;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.badge.bg-success {
+    background-color: #28a745 !important;
+}
+
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+.card.fishing-card {
+    border: 2px solid #4a7c59;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header.bg-primary {
+    background: linear-gradient(135deg, #4a7c59, #2c5530) !important;
+    border-bottom: none;
+}
+
+.form-control-plaintext {
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+}
+
+/* ==================================================
+   OCULTAR LA LISTA DE SPOTS QUE APARECE DINÁMICAMENTE
+   ================================================== */
+
+.spots-list-container,
+#spots-grid-container,
+#spots-grid,
+#toggle-grid-btn {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+.card-header.bg-success i.fa-th-list {
+    display: none !important;
+}
+
+.card-header.bg-success {
+    display: none !important;
+}
+
+.hide-spots-list {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* ==================================================
+   UTILIDADES ESPECÍFICAS - CORREGIDAS
+   ================================================== */
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mt-5 { margin-top: 3rem; }
+
+.ms-2 { margin-left: 0.5rem; }
+.me-2 { margin-right: 0.5rem; }
+
+.text-end { text-align: right; }
+.text-start { text-align: left; }
+
+.d-flex { display: flex; }
+.justify-content-between { justify-content: space-between; }
+.justify-content-center { justify-content: center; }
+.align-items-center { align-items: center; }
+
+.w-100 { width: 100%; }
+
+.border-bottom { border-bottom: 1px solid #e2e8f0; }
+
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+
+.gap-2 { gap: 0.5rem; }
+
+/* ==================================================
+   ESTILOS PARA BOTONES DE ACCIÓN
+   ================================================== */
+
+.btn-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-group .btn {
+  margin: 0;
+  flex: 1;
+  min-width: auto;
+}
+
+/* ==================================================
+   MEJORAS VISUALES FINALES
+   ================================================== */
+
+.navbar-nav .nav-link:focus,
+.btn:focus {
+  outline: 2px solid var(--primary-light);
+  outline-offset: 2px;
+}
+
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+strong {
+  color: var(--dark);
+  font-weight: 600;
+}
+
+.loading-state {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+button, 
+.btn, 
+[onclick] {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+#login-form button,
+#register-form button,
+#recovery-form button {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+a[onclick] {
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
+
+.alert.position-fixed {
+  pointer-events: auto !important;
+}
+
+.navbar,
+.btn,
+.form-control,
+.card {
+  position: relative;
+  z-index: 10;
+}
+
+/* ==================================================
+   CORRECCIONES RESPONSIVE - MEJORAS PARA MÓVILES
+   ================================================== */
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 100%;
+  }
+
+  .navbar-nav {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 15px;
+    margin: 2px 0;
+    display: block;
+  }
+
+  #auth-buttons {
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  h1 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  .fishing-card {
+    margin-bottom: 15px;
+    padding: 15px;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  #map, #full-map {
+    height: 300px !important;
+    min-height: 300px !important;
+  }
+
+  #clima-section .col-md-4 {
+    margin-bottom: 15px;
+  }
+
+  .modal-dialog {
+    margin: 10px;
+    max-width: calc(100% - 20px);
+  }
+
+  #simple-spots-grid {
+    max-height: 250px !important;
+  }
+  
+  .grid-header {
+    padding: 10px 12px;
+  }
+  
+  .grid-header h5 {
+    font-size: 1rem;
+  }
+  
+  .spot-name {
+    font-size: 0.9rem;
+  }
+  
+  .spot-type {
+    font-size: 13px !important;
+    padding: 5px 10px !important;
+  }
+  
+  .spot-species {
+    font-size: 13px !important;
+    padding: 3px 8px !important;
+  }
+  
+  .spot-details {
+    font-size: 0.75rem;
+  }
+
+  .btn-group {
+    flex-wrap: wrap;
+  }
+
+  .btn-group .btn {
+    flex: 1 0 auto;
+    margin: 2px;
+    min-width: 120px;
+  }
+
+  .form-control, .form-select {
+    font-size: 16px;
+  }
+
+  .weather-content {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .weather-content h6 {
+    font-size: 1rem;
+  }
+
+  .col-md-4, .col-md-8 {
+    width: 100% !important;
+    margin-bottom: 15px;
+  }
+
+  .col-md-6,
+  .col-md-8,
+  .col-md-4,
+  .col-lg-8,
+  .col-lg-4 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  
+  .row {
+    margin: 0;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .leaflet-popup-content {
+    max-width: 250px !important;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 1.75rem !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1.25rem !important;
+  }
+
+  h4 {
+    font-size: 1.1rem !important;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .modal-body {
+    padding: 15px;
+  }
+
+  .form-control, .form-select, .btn {
+    min-height: 44px;
+  }
+
+  .grid-spot-item {
+    padding: 8px 5px;
+  }
+
+  .auth-tabs .nav-pills {
+    padding: 2px;
+  }
+  
+  .auth-tabs .nav-pills .nav-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  .profile-avatar i {
+    font-size: 3rem;
+  }
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.container, .container-fluid {
+  width: 100%;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.leaflet-container {
+  touch-action: manipulation;
+}
+
+.leaflet-control-zoom {
+  margin-bottom: 30px !important;
+}
+
+.leaflet-control {
+  clear: none !important;
+}
+
+#weather-panel {
+  font-size: 14px;
+}
+
+#add-spot-btn {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-truncate-mobile {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .btn, .nav-link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .leaflet-control-zoom a {
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+  }
+
+  .leaflet-popup-content-wrapper {
+    border-radius: 12px;
+  }
+
+  .leaflet-popup-close-button {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .fishing-card {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+  
+  #map, #full-map {
+    -webkit-transform: translate3d(0,0,0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+}
+
+@media (max-width: 768px) and (min-resolution: 192dpi) {
+  .fishing-card {
+    border-width: 0.5px;
+  }
+  
+  .btn {
+    border-width: 0.5px;
+  }
+}
+
+html {
+  -webkit-overflow-scrolling: touch;
+}
+
+@viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+#profile-map-btn, 
+#profile-home-btn,
+button[onclick*="showMap"],
+button[onclick*="showHomePage"] {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#profile-map-btn:hover, 
+#profile-home-btn:hover,
+button[onclick*="showMap"]:hover,
+button[onclick*="showHomePage"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+}
+
+.btn-outline-secondary {
+    background: transparent;
+    border: 2px solid #6c757d;
+    color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background: #6c757d;
+    color: white;
+}
+/* ==================================================
+   ESTILOS PARA GUÍAS
+   ================================================== */
+
+/* Página de guías */
+.guides-page {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+}
+
+.page-header h1 {
+    margin-bottom: 10px;
+    font-size: 2.5rem;
+}
+
+.page-header .lead {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Controles de guías */
+.guides-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+    .guides-controls {
+        grid-template-columns: 1fr;
+    }
+}
+
+.filters-card,
+.action-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.filters-card h3,
+.action-card h3 {
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.filter-group .form-group {
+    margin-bottom: 15px;
+}
+
+/* Lista de guías */
+.guides-list-section {
+    margin-bottom: 40px;
+}
+
+.guides-list-section h2 {
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+/* Grid de guías */
+.guides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Tarjeta de guía */
+.guide-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.guide-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.guide-card-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.guide-avatar {
+    position: relative;
+    margin-right: 15px;
+}
+
+.guide-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.verified-badge {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: #4CAF50;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.guide-basic-info {
+    flex: 1;
+}
+
+.guide-basic-info h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.guide-rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.guide-rating .fa-star {
+    color: #FFD700;
+    margin-right: 2px;
+}
+
+.rating-text {
+    margin-left: 8px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.guide-experience {
+    display: flex;
+    align-items: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.guide-experience i {
+    margin-right: 5px;
+    color: #667eea;
+}
+
+.guide-card-body {
+    padding: 15px 20px;
+}
+
+.guide-description {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.guide-zones,
+.guide-price {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.guide-zones i,
+.guide-price i {
+    margin-right: 8px;
+    color: #667eea;
+}
+
+.guide-card-footer {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid #eee;
+}
+
+.guide-card-footer .btn {
+    flex: 1;
+}
+
+/* Información de guías */
+.guides-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.info-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.info-card i {
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+.info-card h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.info-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Modal de detalles del guía */
+.guide-details-modal .guide-header-details {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.guide-avatar-large {
+    position: relative;
+    margin-right: 20px;
+}
+
+.guide-avatar-large img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+.verified-badge-large {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: #4CAF50;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: 3px solid white;
+}
+
+.guide-header-info {
+    flex: 1;
+}
+
+.guide-header-info h2 {
+    margin: 0 0 10px 0;
+    color: white;
+}
+
+.guide-rating-large {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.guide-rating-large .fa-star {
+    color: #FFD700;
+    margin-right: 5px;
+    font-size: 1.2rem;
+}
+
+.rating-text-large {
+    margin-left: 15px;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.guide-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.meta-item i {
+    margin-right: 8px;
+    font-size: 0.9rem;
+}
+
+.meta-item span {
+    font-size: 0.9rem;
+}
+
+.guide-body-details {
+    padding: 20px;
+}
+
+.guide-body-details .section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.guide-body-details .section:last-child {
+    border-bottom: none;
+}
+
+.guide-body-details .section h3 {
+    display: flex;
+    align-items: center;
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+.guide-body-details .section h3 i {
+    margin-right: 10px;
+}
+
+.guide-full-description {
+    line-height: 1.6;
+    color: #555;
+}
+
+.services-grid,
+.zones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.service-item,
+.zone-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.service-item i,
+.zone-item i {
+    margin-right: 10px;
+    color: #4CAF50;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+}
+
+.contact-item i {
+    margin-right: 10px;
+    color: #667eea;
+    width: 20px;
+}
+
+.contact-item a {
+    color: #333;
+    text-decoration: none;
+}
+
+.contact-item a:hover {
+    color: #667eea;
+    text-decoration: underline;
+}
+
+/* Reseñas */
+.reviews-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.review-item {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.review-author-info {
+    flex: 1;
+}
+
+.review-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.review-date {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.review-rating {
+    display: flex;
+    align-items: center;
+}
+
+.review-rating .fa-star {
+    color: #FFD700;
+    margin-right: 2px;
+}
+
+.review-comment {
+    color: #555;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+/* Sistema de tags */
+.tags-input-container {
+    position: relative;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    background: #667eea;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.tag-remove {
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+/* Estrellas interactivas */
+.star-rating {
+    display: flex;
+    gap: 5px;
+    font-size: 1.5rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star-rating .fas,
+.star-rating .far {
+    transition: color 0.2s ease;
+}
+
+.star-rating .fas {
+    color: #FFD700;
+}
+
+.star-rating i:hover,
+.star-rating i:hover ~ i {
+    color: #FFD700;
+}
+
+/* Estados de carga y sin resultados */
+.loading {
+    text-align: center;
+    padding: 40px;
+}
+
+.loading .spinner-border {
+    margin-bottom: 15px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.no-results i {
+    margin-bottom: 15px;
+    color: #999;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .guide-header-details {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .guide-avatar-large {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .guide-meta {
+        justify-content: center;
+    }
+    
+    .services-grid,
+    .zones-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Indicador de tipo de usuario en perfil */
+.user-type-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.user-type-badge.fisherman {
+    background: #4CAF50;
+    color: white;
+}
+
+.user-type-badge.guide {
+    background: #FF9800;
+    color: white;
+}
+
+/* ==================================================
+   BOTÓN FLOTANTE (FAB) - SOLO EN MOBILE
+   ================================================== */
+.fab-add-spot {
+    display: none !important;
+}
+
+/* ==================================================
+   FIN DEL CSS - VERSIÓN CORREGIDA
+   ================================================== */

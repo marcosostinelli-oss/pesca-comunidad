@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PescaComunidad - Conectando Pescadores</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Leaflet CSS - Mapas -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Leaflet Extra Markers CSS - Iconos bonitos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-extra-markers/1.2.1/css/leaflet.extra-markers.min.css">
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Nuestros estilos -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Estilos Responsive Mobile -->
+    <link rel="stylesheet" href="mobile-responsive.css">
+</head>
+<body>
+    <!-- Navbar Moderna - ACTUALIZADA CON AMIGOS -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-fish"></i> PescaComunidad
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home"><i class="fas fa-home"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mapa"><i class="fas fa-map"></i> Mapa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clima"><i class="fas fa-cloud-sun"></i> Clima</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pesca"><i class="fas fa-fishing-rod"></i> Pesca</a>
+                    </li>
+                    <!-- NUEVO: Enlace a Amigos -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/amigos"><i class="fas fa-user-friends"></i> Amigos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#/guias">
+                      <i class="fas fa-user-tie"></i> Guías
+                       </a>
+                    </li>
+                </ul>
+                
+                <!-- ✅ Botones de autenticación (actualizados para Router SPA) -->
+                <div id="auth-buttons" class="d-flex gap-2">
+                    <!-- Se llenará dinámicamente por Auth.renderAuthButtons() -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor Principal -->
+    <div class="container mt-4">
+        <!-- Contenedor dinámico para páginas -->
+        <div id="app">
+            <!-- Aquí se cargarán las páginas dinámicas mediante el Router SPA -->
+            <!-- Home, Auth, Perfil, Mapa, Clima, Pesca, Amigos -->
+            
+            <!-- CONTENEDOR ESPECÍFICO PARA PÁGINA DE AMIGOS - AGREGADO -->
+            <div id="friends-page-container" style="display: none;"></div>
+        </div>
+
+        <!-- Contenido estático de la página de inicio (solo visible en /home) -->
+        <div id="home-content">
+            <!-- Hero Section -->
+            <div class="row mb-5 fade-in">
+                <div class="col-12 text-center">
+                    <h1>Bienvenido a PescaComunidad</h1>
+                    <p class="lead">Tu plataforma integral para la pesca deportiva</p>
+                </div>
+            </div>
+
+            <!-- Sección del Mapa -->
+            <div class="row mb-4 fade-in" id="mapa-section">
+                <div class="col-12">
+                    <div class="card fishing-card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <i class="fas fa-map-marked-alt text-primary"></i> 
+                                Mapa Interactivo de Pesca
+                            </h3>
+                            <p class="text-muted mb-4">Explora los mejores lugares de pesca, condiciones actuales y reportes de la comunidad</p>
+                            <div id="map" style="min-height: 400px; width: 100%;"></div>
+                            <div class="text-center mt-3">
+                                <a href="/mapa" class="btn btn-primary">
+                                    <i class="fas fa-expand me-2"></i>Ver Mapa Completo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Información en Tiempo Real -->
+            <div class="row mb-4 fade-in" id="clima-section">
+                <!-- Clima Actual -->
+                <div class="col-md-4 mb-3">
+                    <div class="card fishing-card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">
+                                <i class="fas fa-sun text-warning"></i> Clima Actual
+                            </h5>
+                            <div id="current-weather" class="weather-current">
+                                <div class="loading-spinner"></div>
+                                <small>Cargando condiciones climáticas...</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mareas -->
+                <div class="col-md-4 mb-3">
+                    <div class="card fishing-card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">
+                                <i class="fas fa-water text-info"></i> Estado de Mareas
+                            </h5>
+                            <div id="tides-info">
+                                <div class="loading-spinner"></div>
+                                <small>Calculando mareas...</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fase Lunar -->
+                <div class="col-md-4 mb-3">
+                    <div class="card fishing-card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">
+                                <i class="fas fa-moon text-secondary"></i> Fase Lunar
+                            </h5>
+                            <div id="moon-phase">
+                                <div class="loading-spinner"></div>
+                                <small>Obteniendo fase lunar...</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Condiciones de Pesca -->
+            <div class="row mb-4 fade-in" id="pesca-section">
+                <div class="col-12">
+                    <div class="card fishing-card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fas fa-fishing-rod text-success"></i> 
+                                Condiciones de Pesca
+                            </h4>
+                            <div id="fishing-conditions">
+                                <div class="text-center py-4">
+                                    <div class="loading-spinner text-success"></div>
+                                    <p class="text-muted mt-2">Analizando condiciones óptimas para la pesca...</p>
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <a href="/pesca" class="btn btn-success">
+                                    <i class="fas fa-info-circle me-2"></i>Más Información de Pesca
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clima Extendido -->
+            <div class="row mb-4 fade-in">
+                <div class="col-12">
+                    <div class="card fishing-card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fas fa-calendar-alt text-primary"></i> 
+                                Pronóstico Extendido (5 días)
+                            </h4>
+                            <div id="weather-forecast">
+                                <div class="row text-center">
+                                    <div class="col">
+                                        <div class="loading-spinner text-primary"></div>
+                                        <p class="text-muted mt-2">Cargando pronóstico...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <a href="/clima" class="btn btn-info">
+                                    <i class="fas fa-chart-line me-2"></i>Ver Pronóstico Completo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Puntos de Pesca Destacados -->
+            <div class="row mb-4 fade-in">
+                <div class="col-12">
+                    <div class="card fishing-card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fas fa-star text-warning"></i> 
+                                Puntos de Pesca Destacados
+                            </h4>
+                            <div id="fishing-spots">
+                                <div class="text-center py-4">
+                                    <div class="loading-spinner text-warning"></div>
+                                    <p class="text-muted mt-2">Cargando puntos de pesca recomendados...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reportes de la Comunidad -->
+            <div class="row mb-4 fade-in">
+                <div class="col-12">
+                    <div class="card fishing-card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fas fa-users text-info"></i> 
+                                Reportes de la Comunidad
+                            </h4>
+                            <div id="community-reports">
+                                <div class="text-center py-4">
+                                    <div class="loading-spinner text-info"></div>
+                                    <p class="text-muted mt-2">Cargando reportes recientes...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ MODAL ACTUALIZADO PARA AGREGAR SPOTS -->
+    <div class="modal fade" id="spot-form-container" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-map-marker-alt me-2"></i>Agregar Nuevo Spot de Pesca
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="spot-form">
+                        <!-- Coordenadas (solo lectura) -->
+                        <div class="mb-3">
+                            <label for="spot-coordinates" class="form-label">
+                                <i class="fas fa-location-dot me-1"></i>Ubicación Seleccionada
+                            </label>
+                            <input type="text" class="form-control" id="spot-coordinates" readonly>
+                            <div class="form-text">Haz clic en el mapa para seleccionar una ubicación</div>
+                        </div>
+
+                        <!-- Nombre del Spot -->
+                        <div class="mb-3">
+                            <label for="spot-name" class="form-label">
+                                <i class="fas fa-tag me-1"></i>Nombre del Spot *
+                            </label>
+                            <input type="text" class="form-control" id="spot-name" required 
+                                   placeholder="Ej: Laguna de los Patos, Río Colorado...">
+                        </div>
+                        
+                        <!-- Tipo de Agua -->
+                        <div class="mb-3">
+                            <label for="spot-type" class="form-label">
+                                <i class="fas fa-water me-1"></i>Tipo de Agua
+                            </label>
+                            <select class="form-select" id="spot-type">
+                                <option value="río">Río</option>
+                                <option value="lago">Lago</option>
+                                <option value="mar">Mar</option>
+                                <option value="embalse">Embalse</option>
+                                <option value="arroyo">Arroyo</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Especies -->
+                        <div class="mb-3">
+                            <label for="spot-species" class="form-label">
+                                <i class="fas fa-fish me-1"></i>Especies que se pueden pescar
+                            </label>
+                            <input type="text" class="form-control" id="spot-species" 
+                                   placeholder="Ej: trucha, carpa, dorado, surubí, bagre...">
+                            <div class="form-text">Separa las especies con comas</div>
+                        </div>
+                        
+                        <!-- Mejor Horario -->
+                        <div class="mb-3">
+                            <label for="spot-best-time" class="form-label">
+                                <i class="fas fa-clock me-1"></i>Mejor Horario para Pescar
+                            </label>
+                            <select class="form-select" id="spot-best-time">
+                                <option value="mañana">Mañana</option>
+                                <option value="tarde">Tarde</option>
+                                <option value="noche">Noche</option>
+                                <option value="amanecer">Amanecer</option>
+                                <option value="atardecer">Atardecer</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Visibilidad -->
+                        <div class="mb-3">
+                            <label for="spot-visibility" class="form-label">
+                                <i class="fas fa-eye me-1"></i>Visibilidad
+                            </label>
+                            <select class="form-select" id="spot-visibility">
+                                <option value="público">Público (todos pueden ver)</option>
+                                <option value="solo-amigos">Solo Amigos</option>
+                                <option value="privado">Privado (solo tú)</option>
+                            </select>
+                            <div class="form-text">
+                                <span class="text-info">🔵 Público</span> - 
+                                <span class="text-warning">🟠 Solo amigos</span> - 
+                                <span class="text-danger">🔴 Privado</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Descripción -->
+                        <div class="mb-3">
+                            <label for="spot-description" class="form-label">
+                                <i class="fas fa-file-alt me-1"></i>Descripción
+                            </label>
+                            <textarea class="form-control" id="spot-description" rows="3" 
+                                      placeholder="Describe el spot, accesos, características..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancel-spot-btn">
+                        <i class="fas fa-times me-1"></i>Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="app.mapCore.saveSpot()">
+                        <i class="fas fa-save me-1"></i>Guardar Spot
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Leaflet JS - Mapas -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Leaflet Extra Markers JS - Iconos bonitos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-extra-markers/1.2.1/js/leaflet.extra-markers.min.js"></script>
+    
+    <!-- Chart.js para gráficos del clima -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Moment.js para manejo de fechas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/es.min.js"></script>
+    
+    <!-- Nuestra aplicación modular -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

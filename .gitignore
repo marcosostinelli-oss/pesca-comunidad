@@ -1,0 +1,27 @@
+# Dependencias
+node_modules/
+
+# Bases de datos (contienen emails y contraseñas hasheadas reales)
+*.db
+*.db-shm
+*.db-wal
+backend/pesca-comunidad*.db
+backend/*.db
+
+# Binarios
+*.exe
+
+# Variables de entorno / secretos
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / SO
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Archivos temporales de scripts de migración one-off (revisar antes de ignorar si aún los necesitás versionados)
