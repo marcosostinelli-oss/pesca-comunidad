@@ -3,6 +3,20 @@ const router = express.Router();
 const AuthBackend = require('../auth');
 const auth = new AuthBackend();
 const jwt = require('jsonwebtoken');
+const rateLimit = require('express-rate-limit');
+
+// 🛡️ Rate limiting: máximo 10 intentos cada 15 minutos por IP
+// Protege contra fuerza bruta de contraseñas y registro masivo de cuentas
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+        success: false,
+        message: 'Demasiados intentos. Probá de nuevo en unos minutos.'
+    }
+});
 
 // La clave secreta se carga desde .env (server.js corre dotenv.config() antes de importar este módulo)
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -10,7 +24,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // 🎯 RUTAS DE AUTENTICACIÓN - ACTUALIZADAS
 
 // POST /api/auth/register
-router.post('/register', async (req, res) => {
+router.post('/register', authLimiter, async (req, res) => {
     try {
         const result = await auth.register(req.body);
         
@@ -33,7 +47,7 @@ router.post('/register', async (req, res) => {
 });
 
 // POST /api/auth/login
-router.post('/login', async (req, res) => {
+router.post('/login', authLimiter, async (req, res) => {
     try {
         const result = await auth.login(req.body);
         
