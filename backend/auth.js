@@ -18,8 +18,25 @@ class AuthBackend {
                 throw { success: false, message: 'Todos los campos obligatorios deben ser completados' };
             }
 
-            if (password.length < 6) {
-                throw { success: false, message: 'La contraseña debe tener al menos 6 caracteres' };
+            // ✅ Validar formato de email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                throw { success: false, message: 'El email debe ser válido' };
+            }
+
+            // ✅ Validar fortaleza de contraseña: mínimo 8 caracteres,
+            // al menos una mayúscula, un número y un carácter especial
+            if (password.length < 8) {
+                throw { success: false, message: 'La contraseña debe tener al menos 8 caracteres' };
+            }
+            if (!/[A-Z]/.test(password)) {
+                throw { success: false, message: 'La contraseña debe tener al menos una letra mayúscula' };
+            }
+            if (!/[0-9]/.test(password)) {
+                throw { success: false, message: 'La contraseña debe tener al menos un número' };
+            }
+            if (!/[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\/;']/.test(password)) {
+                throw { success: false, message: 'La contraseña debe tener al menos un carácter especial (ej: $ % & . -)' };
             }
 
             // Verificar si el usuario ya existe

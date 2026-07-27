@@ -39,7 +39,7 @@ export class AuthUI {
                             </div>
 
                             <!-- Formulario Único -->
-                            <form id="auth-form">
+                            <form id="auth-form" novalidate>
                                 <!-- Campo Nombre (solo en registro) -->
                                 <div class="mb-3 ${this.isLoginMode ? 'd-none' : ''}" id="name-field">
                                     <label for="auth-name" class="form-label">Nombre completo *</label>
@@ -58,14 +58,26 @@ export class AuthUI {
                                 <div class="mb-3">
                                     <label for="auth-password" class="form-label">Contraseña *</label>
                                     <input type="password" class="form-control" id="auth-password" name="password"
-                                           placeholder="${this.isLoginMode ? 'Tu contraseña' : 'Mínimo 6 caracteres'}" 
-                                           required minlength="6">
-                                    <div class="form-check mt-2">
-                                        <input class="form-check-input" type="checkbox" id="show-password">
-                                        <label class="form-check-label" for="show-password">
-                                            Mostrar contraseña
-                                        </label>
-                                    </div>
+                                           placeholder="${this.isLoginMode ? 'Tu contraseña' : 'Mínimo 8 caracteres'}" 
+                                           required minlength="${this.isLoginMode ? 6 : 8}">
+                                    ${!this.isLoginMode ? `
+                                    <div class="form-text">Mínimo 8 caracteres, con al menos 1 mayúscula, 1 número y 1 carácter especial ($ % & . -)</div>
+                                    ` : ''}
+                                </div>
+
+                                <!-- Campo Confirmar Contraseña (solo en registro) -->
+                                <div class="mb-3 ${this.isLoginMode ? 'd-none' : ''}" id="confirm-password-field">
+                                    <label for="auth-confirm-password" class="form-label">Confirmar contraseña *</label>
+                                    <input type="password" class="form-control" id="auth-confirm-password" name="confirmPassword"
+                                           placeholder="Repetí tu contraseña" ${!this.isLoginMode ? 'required' : ''}>
+                                </div>
+
+                                <!-- Check para mostrar ambas contraseñas -->
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="show-password">
+                                    <label class="form-check-label" for="show-password">
+                                        Mostrar contraseña${!this.isLoginMode ? 's' : ''}
+                                    </label>
                                 </div>
 
                                 <!-- Campo WhatsApp (solo en registro) -->
@@ -176,8 +188,12 @@ export class AuthUI {
         if (showPasswordCheckbox) {
             showPasswordCheckbox.addEventListener('change', (e) => {
                 const passwordInput = document.getElementById('auth-password');
+                const confirmPasswordInput = document.getElementById('auth-confirm-password');
                 if (passwordInput) {
                     passwordInput.type = e.target.checked ? 'text' : 'password';
+                }
+                if (confirmPasswordInput) {
+                    confirmPasswordInput.type = e.target.checked ? 'text' : 'password';
                 }
             });
         }
@@ -249,6 +265,7 @@ export class AuthUI {
         // Obtener valores del formulario
         const email = formData.get('email');
         const password = formData.get('password');
+        const confirmPassword = formData.get('confirmPassword');
         const name = formData.get('name');
         const whatsapp = formData.get('whatsapp');
 
@@ -258,9 +275,42 @@ export class AuthUI {
             return;
         }
 
-        if (action === 'register' && !name) {
-            this.app.showNotification('❌ El nombre es requerido para registrarse', 'error');
-            return;
+        if (action === 'register') {
+            if (!name) {
+                this.app.showNotification('❌ El nombre es requerido para registrarse', 'error');
+                return;
+            }
+
+            // ✅ Validar formato de email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                this.app.showNotification('❌ Por favor ingresá un email válido', 'error');
+                return;
+            }
+
+            // ✅ Validar fortaleza de contraseña
+            if (password.length < 8) {
+                this.app.showNotification('❌ La contraseña debe tener al menos 8 caracteres', 'error');
+                return;
+            }
+            if (!/[A-Z]/.test(password)) {
+                this.app.showNotification('❌ La contraseña debe tener al menos una mayúscula', 'error');
+                return;
+            }
+            if (!/[0-9]/.test(password)) {
+                this.app.showNotification('❌ La contraseña debe tener al menos un número', 'error');
+                return;
+            }
+            if (!/[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\/;']/.test(password)) {
+                this.app.showNotification('❌ La contraseña debe tener al menos un carácter especial (ej: $ % & . -)', 'error');
+                return;
+            }
+
+            // ✅ Validar que coincidan las contraseñas
+            if (password !== confirmPassword) {
+                this.app.showNotification('❌ Las contraseñas no coinciden', 'error');
+                return;
+            }
         }
 
         try {
@@ -312,10 +362,13 @@ export class AuthUI {
                 errorMessage = '❌ Email o contraseña incorrectos';
             } else if (error.message.includes('ya está registrado')) {
                 errorMessage = '❌ Este email ya está registrado';
-            } else if (error.message.includes('contraseña debe tener')) {
-                errorMessage = '❌ La contraseña debe tener al menos 6 caracteres';
             } else if (error.message.includes('email debe ser válido')) {
                 errorMessage = '❌ Por favor ingresa un email válido';
+            } else if (error.message.includes('contraseña debe tener') || 
+                       error.message.includes('mayúscula') || 
+                       error.message.includes('número') || 
+                       error.message.includes('carácter especial')) {
+                errorMessage = `❌ ${error.message}`;
             } else {
                 errorMessage = `❌ ${error.message}`;
             }
