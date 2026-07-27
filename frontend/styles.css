@@ -1654,6 +1654,24 @@ h1:not([class*="gradient"]):not([style*="gradient"]) {
   min-width: auto;
 }
 
+/* ✅ Pestañas de Clima/Extendido/Mareas/Pesca: grid 2x2 en vez del btn-group
+   de Bootstrap, que se pisa con 4 textos desparejos en una columna angosta. */
+.weather-tabs.btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.weather-tabs.btn-group .btn {
+  width: 100%;
+  margin: 0 !important;
+  border-radius: 6px !important;
+  white-space: normal;
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
 /* ==================================================
    MEJORAS VISUALES FINALES
    ================================================== */

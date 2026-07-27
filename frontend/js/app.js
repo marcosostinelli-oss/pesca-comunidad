@@ -971,7 +971,7 @@ class PescaApp {
                     <div class="card fishing-card mb-3">
                         <div class="card-body">
                             <h5>🌤️ Condiciones de Pesca</h5>
-                            <div class="btn-group w-100 mb-3" role="group">
+                            <div class="btn-group weather-tabs w-100 mb-3" role="group">
                                 <button type="button" class="btn btn-outline-primary active" id="weather-btn">Clima</button>
                                 <button type="button" class="btn btn-outline-primary" id="forecast-btn">Extendido</button>
                                 <button type="button" class="btn btn-outline-primary" id="tides-btn">Mareas</button>
