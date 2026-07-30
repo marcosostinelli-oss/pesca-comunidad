@@ -305,6 +305,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 // ✅ IMPORTAR RUTAS ACTUALIZADAS
 // ==================================================
 const spotsRoutes = require('./routes/spots');
+const tidesRoutes = require('./routes/tides');
 const authRoutes = require('./routers/auth');
 
 // ✅ NUEVAS RUTAS DE AMIGOS
@@ -358,6 +359,7 @@ const authenticateToken = (req, res, next) => {
 // ✅ USAR RUTAS ACTUALIZADAS
 // ==================================================
 app.use('/api/spots', spotsRoutes);
+app.use('/api/tides', tidesRoutes);
 app.use('/api/auth', authRoutes);
 
 // ✅ NUEVAS RUTAS DE AMIGOS

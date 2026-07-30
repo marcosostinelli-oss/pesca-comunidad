@@ -4,6 +4,8 @@
 // Reemplaza la lógica que antes vivía duplicada en map-core.js
 // ==================================================
 
+import { API_BASE_URL } from '../../utils/constants.js';
+
 export class WeatherService {
 
     // Clima actual
@@ -73,23 +75,29 @@ export class WeatherService {
         return forecast;
     }
 
-    // Mareas simuladas según ubicación y hora (misma lógica que antes en map-core.js)
-    getTides(lat, lng) {
-        const now = new Date();
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
+    // ✅ Mareas reales: vía nuestro propio backend (/api/tides), que a su vez
+    // consulta TideCheck con la API key oculta del lado del servidor, y cachea
+    // resultados para no gastar el límite de pedidos diarios del plan gratuito.
+    async getTides(lat, lng) {
+        const response = await fetch(`${API_BASE_URL}/tides?lat=${lat}&lng=${lng}`);
 
-        const isRising = hours < 6 || (hours >= 12 && hours < 18);
-        const currentHeight = (1.0 + Math.sin((hours + minutes / 60) * Math.PI / 12) * 0.8).toFixed(1);
+        if (!response.ok) {
+            const errorBody = await response.json().catch(() => ({}));
+            throw new Error(errorBody.message || `Error HTTP obteniendo mareas: ${response.status}`);
+        }
 
-        const nextHigh = hours < 6 ? '06:30' : hours < 18 ? '18:20' : '06:30 (+1)';
-        const nextLow = hours < 12 ? '12:45' : '00:45 (+1)';
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message || 'Error desconocido obteniendo mareas');
+        }
 
         return {
-            current: isRising ? 'Subiendo' : 'Bajando',
-            currentHeight,
-            nextHigh,
-            nextLow
+            current: data.current,
+            currentHeight: data.currentHeight,
+            nextHigh: data.nextHigh,
+            nextLow: data.nextLow,
+            source: data.source
         };
     }
 

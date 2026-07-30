@@ -959,7 +959,7 @@ export class MapCore {
     // ✅ Contenido de mareas (vía WeatherService)
     async getTidesContent(lat, lng) {
         try {
-            const tides = this.weatherService.getTides(lat, lng);
+            const tides = await this.weatherService.getTides(lat, lng);
             
             return `
                 <div class="weather-content">
@@ -974,7 +974,7 @@ export class MapCore {
                         <div class="mt-3 p-2 bg-info bg-opacity-10 rounded">
                             <small>💡 Mejor pesca: 2 horas antes y después de la pleamar</small>
                         </div>
-                        <small class="text-info">🌡️ Basado en datos de ubicación</small>
+                        <small class="text-success">✅ ${tides.source}</small>
                     </div>
                 </div>
             `;

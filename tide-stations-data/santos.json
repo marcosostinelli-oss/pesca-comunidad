@@ -1,0 +1,384 @@
+﻿{
+  "datum": "MLWS",
+  "units": "meters",
+  "station": {
+    "id": "ticon/ubatuba-282a-bra-uhslc_rq",
+    "name": "Ubatuba",
+    "region": "Sao Paulo",
+    "country": "Brazil",
+    "continent": "Americas",
+    "latitude": -23.5,
+    "longitude": -45.117,
+    "timezone": "America/Sao_Paulo",
+    "source": {
+      "name": "TICON-4",
+      "url": "https://www.seanoe.org/data/00980/109129/",
+      "id": "ubatuba-282a-bra-uhslc_rq",
+      "published_harmonics": true
+    },
+    "license": {
+      "type": "cc-by-4.0",
+      "commercial_use": true,
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "disclaimers": "No obvious issues",
+    "datums": {
+      "HAT": 2.963,
+      "MHHW": 2.747,
+      "MHW": 2.598,
+      "MSL": 2.342,
+      "MTL": 2.355,
+      "MLW": 2.112,
+      "MLLW": 1.84,
+      "LAT": 1.451,
+      "MHWS": 2.832,
+      "MLWS": 1.852
+    },
+    "datums_source": "observed",
+    "chart_datum": "MLWS",
+    "type": "reference",
+    "harmonic_constituents": [
+      {
+        "name": "M2",
+        "amplitude": 0.30782056999999996,
+        "phase": 166.18715900000007
+      },
+      {
+        "name": "N2",
+        "amplitude": 0.04123824,
+        "phase": 212.570894
+      },
+      {
+        "name": "S2",
+        "amplitude": 0.18199942,
+        "phase": 174.604959
+      },
+      {
+        "name": "K2",
+        "amplitude": 0.055785289999999994,
+        "phase": 165.39155500000004
+      },
+      {
+        "name": "2N2",
+        "amplitude": 0.01424452,
+        "phase": 212.454996
+      },
+      {
+        "name": "S1",
+        "amplitude": 0.006024580000000001,
+        "phase": 179.55030899999997
+      },
+      {
+        "name": "K1",
+        "amplitude": 0.05995374,
+        "phase": 186.698252
+      },
+      {
+        "name": "P1",
+        "amplitude": 0.02091636,
+        "phase": 178.44919300000004
+      },
+      {
+        "name": "O1",
+        "amplitude": 0.10952840999999999,
+        "phase": 123.81810999999999
+      },
+      {
+        "name": "Q1",
+        "amplitude": 0.029866320000000002,
+        "phase": 100.899427
+      },
+      {
+        "name": "M1",
+        "amplitude": 0.00173105,
+        "phase": 314.559528
+      },
+      {
+        "name": "M4",
+        "amplitude": 0.05458653,
+        "phase": 186.869922
+      },
+      {
+        "name": "MM",
+        "amplitude": 0.0025550499999999997,
+        "phase": 92.885514
+      },
+      {
+        "name": "MF",
+        "amplitude": 0.00520881,
+        "phase": 261.856215
+      },
+      {
+        "name": "SA",
+        "amplitude": 0.03116514,
+        "phase": 67.72521799999998
+      },
+      {
+        "name": "SSA",
+        "amplitude": 0.009715979999999999,
+        "phase": 119.29406399999999
+      },
+      {
+        "name": "T2",
+        "amplitude": 0.006159639999999999,
+        "phase": 177.322228
+      },
+      {
+        "name": "J1",
+        "amplitude": 0.00125081,
+        "phase": 303.880488
+      },
+      {
+        "name": "L2",
+        "amplitude": 0.012341880000000001,
+        "phase": 154.74278300000003
+      },
+      {
+        "name": "R2",
+        "amplitude": 0.0030374800000000004,
+        "phase": 188.695138
+      },
+      {
+        "name": "2Q1",
+        "amplitude": 0.00437371,
+        "phase": 70.516663
+      },
+      {
+        "name": "MSF",
+        "amplitude": 0.02098602,
+        "phase": 135.671361
+      },
+      {
+        "name": "MSQM",
+        "amplitude": 0.011593770000000002,
+        "phase": 270.767391
+      },
+      {
+        "name": "EP2",
+        "amplitude": 0.00446033,
+        "phase": 157.02006700000004
+      },
+      {
+        "name": "M3",
+        "amplitude": 0.014083749999999999,
+        "phase": 326.080339
+      },
+      {
+        "name": "MU2",
+        "amplitude": 0.0166143,
+        "phase": 182.784975
+      },
+      {
+        "name": "MTM",
+        "amplitude": 0.01818698,
+        "phase": 141.6073
+      },
+      {
+        "name": "NU2",
+        "amplitude": 0.005452439999999999,
+        "phase": 213.877349
+      },
+      {
+        "name": "LAMBDA2",
+        "amplitude": 0.00270967,
+        "phase": 88.00883199999998
+      },
+      {
+        "name": "MN4",
+        "amplitude": 0.0232505,
+        "phase": 137.66923499999996
+      },
+      {
+        "name": "MS4",
+        "amplitude": 0.02871428,
+        "phase": 273.280121
+      },
+      {
+        "name": "MKS2",
+        "amplitude": 0.00177757,
+        "phase": 185.809301
+      },
+      {
+        "name": "N4",
+        "amplitude": 0.0051132999999999994,
+        "phase": 91.31799999999998
+      },
+      {
+        "name": "M6",
+        "amplitude": 0.006719739999999999,
+        "phase": 281.483188
+      },
+      {
+        "name": "M8",
+        "amplitude": 0.00156593,
+        "phase": 338.425367
+      },
+      {
+        "name": "S4",
+        "amplitude": 0.0017867,
+        "phase": 268.807081
+      },
+      {
+        "name": "OO1",
+        "amplitude": 0.00228661,
+        "phase": 20.060001999999997
+      },
+      {
+        "name": "S3",
+        "amplitude": 0.00207779,
+        "phase": 63.370001
+      },
+      {
+        "name": "MA2",
+        "amplitude": 0.00340521,
+        "phase": 262.040553
+      },
+      {
+        "name": "MB2",
+        "amplitude": 0.0016023499999999998,
+        "phase": 230.996882
+      },
+      {
+        "name": "T3",
+        "amplitude": 0.00307833,
+        "phase": 125.95953400000002
+      },
+      {
+        "name": "R3",
+        "amplitude": 0.00263508,
+        "phase": 303.467843
+      },
+      {
+        "name": "RHO1",
+        "amplitude": 0.00440149,
+        "phase": 99.03928400000001
+      },
+      {
+        "name": "SGM",
+        "amplitude": 0.0047398,
+        "phase": 266.815255
+      },
+      {
+        "name": "3L2",
+        "amplitude": 0.00908316,
+        "phase": 238.50005099999998
+      },
+      {
+        "name": "3N2",
+        "amplitude": 0.00289742,
+        "phase": 185.991052
+      },
+      {
+        "name": "2SM2",
+        "amplitude": 0.002555,
+        "phase": 344.057602
+      },
+      {
+        "name": "2MS6",
+        "amplitude": 0.00558142,
+        "phase": 291.918995
+      },
+      {
+        "name": "2MK5",
+        "amplitude": 0.00603015,
+        "phase": 176.632793
+      },
+      {
+        "name": "2MO5",
+        "amplitude": 0.00585164,
+        "phase": 242.279407
+      }
+    ],
+    "epoch": {
+      "start": "2013-06-03",
+      "end": "2017-07-11"
+    }
+  },
+  "distance": 130.83387985217848,
+  "extremes": [
+    {
+      "time": "2026-07-28T23:58:48.299Z",
+      "level": 0.19129272982806517,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    },
+    {
+      "time": "2026-07-29T04:49:42.488Z",
+      "level": 0.9193588980793101,
+      "high": true,
+      "low": false,
+      "label": "High"
+    },
+    {
+      "time": "2026-07-29T12:12:53.143Z",
+      "level": -0.1389412127991836,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    },
+    {
+      "time": "2026-07-29T18:11:03.042Z",
+      "level": 1.0196951368843958,
+      "high": true,
+      "low": false,
+      "label": "High"
+    },
+    {
+      "time": "2026-07-30T00:30:18.578Z",
+      "level": 0.16420422414198782,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    },
+    {
+      "time": "2026-07-30T05:19:27.696Z",
+      "level": 0.9725158739030406,
+      "high": true,
+      "low": false,
+      "label": "High"
+    },
+    {
+      "time": "2026-07-30T12:43:13.829Z",
+      "level": -0.1540258273381766,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    },
+    {
+      "time": "2026-07-30T18:30:26.689Z",
+      "level": 1.021261028600689,
+      "high": true,
+      "low": false,
+      "label": "High"
+    },
+    {
+      "time": "2026-07-31T01:02:03.185Z",
+      "level": 0.1412268417668947,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    },
+    {
+      "time": "2026-07-31T05:47:57.169Z",
+      "level": 0.9986551514487996,
+      "high": true,
+      "low": false,
+      "label": "High"
+    },
+    {
+      "time": "2026-07-31T13:12:03.771Z",
+      "level": -0.16002999060959944,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    },
+    {
+      "time": "2026-07-31T18:51:23.126Z",
+      "level": 0.9906692454620388,
+      "high": true,
+      "low": false,
+      "label": "High"
+    }
+  ]
+}

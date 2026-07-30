@@ -1,0 +1,307 @@
+﻿{
+  "datum": "MLLW",
+  "units": "meters",
+  "station": {
+    "id": "noaa/9991475",
+    "name": "Guayaquil",
+    "region": "Guayas",
+    "country": "Ecuador",
+    "continent": "Americas",
+    "latitude": -2.2032999992370605,
+    "longitude": -79.87000274658203,
+    "timezone": "America/Guayaquil",
+    "source": {
+      "name": "US National Oceanic and Atmospheric Administration",
+      "id": "9991475",
+      "published_harmonics": true,
+      "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9991475"
+    },
+    "license": {
+      "type": "public domain",
+      "commercial_use": true,
+      "url": "https://tidesandcurrents.noaa.gov/disclaimers.html"
+    },
+    "disclaimers": "",
+    "datums": {
+      "STND": 0,
+      "MSL": 0,
+      "MLLW": -1.935
+    },
+    "chart_datum": "MLLW",
+    "type": "reference",
+    "harmonic_constituents": [
+      {
+        "name": "M2",
+        "amplitude": 1.487,
+        "phase": 358.2
+      },
+      {
+        "name": "S2",
+        "amplitude": 0.329,
+        "phase": 65
+      },
+      {
+        "name": "N2",
+        "amplitude": 0.244,
+        "phase": 333.1
+      },
+      {
+        "name": "K1",
+        "amplitude": 0.1,
+        "phase": 94.1
+      },
+      {
+        "name": "M4",
+        "amplitude": 0.167,
+        "phase": 266.8
+      },
+      {
+        "name": "O1",
+        "amplitude": 0.021,
+        "phase": 24.8
+      },
+      {
+        "name": "M6",
+        "amplitude": 0.067,
+        "phase": 80.2
+      },
+      {
+        "name": "MK3",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "S4",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "MN4",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "NU2",
+        "amplitude": 0.048,
+        "phase": 336.6
+      },
+      {
+        "name": "S6",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "MU2",
+        "amplitude": 0.119,
+        "phase": 95
+      },
+      {
+        "name": "2N2",
+        "amplitude": 0.032,
+        "phase": 308.1
+      },
+      {
+        "name": "OO1",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "LAM2",
+        "amplitude": 0.01,
+        "phase": 29.3
+      },
+      {
+        "name": "S1",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "M1",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "J1",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "MM",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "SSA",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "SA",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "MSF",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "MF",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "RHO",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "Q1",
+        "amplitude": 0.004,
+        "phase": 350.1
+      },
+      {
+        "name": "T2",
+        "amplitude": 0.02,
+        "phase": 65.1
+      },
+      {
+        "name": "R2",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "2Q1",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "P1",
+        "amplitude": 0.034,
+        "phase": 93.2
+      },
+      {
+        "name": "2SM2",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "M3",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "L2",
+        "amplitude": 0.116,
+        "phase": 3.4
+      },
+      {
+        "name": "2MK3",
+        "amplitude": 0,
+        "phase": 0
+      },
+      {
+        "name": "K2",
+        "amplitude": 0.11,
+        "phase": 39.9
+      },
+      {
+        "name": "M8",
+        "amplitude": 0.024,
+        "phase": 313.6
+      },
+      {
+        "name": "MS4",
+        "amplitude": 0,
+        "phase": 0
+      }
+    ]
+  },
+  "distance": 3.3532179243970086,
+  "extremes": [
+    {
+      "time": "2026-07-28T23:46:56.677Z",
+      "level": 3.235622729805174,
+      "high": true,
+      "low": false,
+      "label": "High"
+    },
+    {
+      "time": "2026-07-29T06:41:02.049Z",
+      "level": 0.2366495296992739,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    },
+    {
+      "time": "2026-07-29T12:19:04.988Z",
+      "level": 3.3888382545374087,
+      "high": true,
+      "low": false,
+      "label": "High"
+    },
+    {
+      "time": "2026-07-29T19:06:59.879Z",
+      "level": 0.44769621832144946,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    },
+    {
+      "time": "2026-07-30T00:30:26.765Z",
+      "level": 3.302442842474796,
+      "high": true,
+      "low": false,
+      "label": "High"
+    },
+    {
+      "time": "2026-07-30T07:24:23.268Z",
+      "level": 0.21427688109845633,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    },
+    {
+      "time": "2026-07-30T12:58:23.996Z",
+      "level": 3.486939515100353,
+      "high": true,
+      "low": false,
+      "label": "High"
+    },
+    {
+      "time": "2026-07-30T19:49:21.739Z",
+      "level": 0.41463295122193733,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    },
+    {
+      "time": "2026-07-31T01:09:08.930Z",
+      "level": 3.3714510599386136,
+      "high": true,
+      "low": false,
+      "label": "High"
+    },
+    {
+      "time": "2026-07-31T08:04:15.025Z",
+      "level": 0.22779429741063328,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    },
+    {
+      "time": "2026-07-31T13:34:03.308Z",
+      "level": 3.577334325464589,
+      "high": true,
+      "low": false,
+      "label": "High"
+    },
+    {
+      "time": "2026-07-31T20:28:23.690Z",
+      "level": 0.4097736849391995,
+      "high": false,
+      "low": true,
+      "label": "Low"
+    }
+  ]
+}
