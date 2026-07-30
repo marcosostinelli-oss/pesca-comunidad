@@ -16,6 +16,9 @@ export class Router {
             '/amigos': 'showFriendsPage',
             '/guias': 'showGuidesPage'
         };
+
+        // ✅ Rutas públicas: accesibles sin login. Todo lo demás redirige a Home.
+        this.publicRoutes = ['/', '/home', '/auth'];
         
         // 🔧 SOPORTE PARA HASH: Detectar si estamos usando hash
         const hash = window.location.hash.substring(1);
@@ -150,6 +153,21 @@ export class Router {
             path = this.normalizePath(path);
             
             console.log('🧭 Navegando a:', path, isHash ? '(hash)' : '(path)', forceReload ? '[FORZADO]' : '');
+
+            // ✅ Control de acceso: todo excepto las rutas públicas requiere login
+            const segments = path.split('/').filter(Boolean);
+            const basePath = segments.length > 0 ? '/' + segments[0] : '/';
+            const isPublic = this.publicRoutes.includes(path) || this.publicRoutes.includes(basePath);
+
+            if (!isPublic && !this.isLoggedIn()) {
+                console.log('🔒 Ruta protegida sin sesión, redirigiendo a Home:', path);
+                this._navigating = false;
+                if (this.app.showNotification) {
+                    this.app.showNotification('🔒 Necesitás iniciar sesión para acceder a esa sección', 'warning');
+                }
+                this.debouncedNavigate('/home', true, isHash);
+                return;
+            }
             
             const normalizedCurrent = this.normalizePath(this.currentPath);
             const normalizedNew = this.normalizePath(path);
@@ -249,6 +267,10 @@ export class Router {
                 this._navigating = false;
             }, 100);
         }
+    }
+
+    isLoggedIn() {
+        return !!localStorage.getItem('pesca_token');
     }
 
     normalizePath(path) {

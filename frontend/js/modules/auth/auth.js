@@ -16,7 +16,7 @@ export class Auth {
                 })
                 .catch(error => {
                     console.error('❌ Token inválido:', error);
-                    this.logout();
+                    this.forceLogout();
                 });
         }
         return false;
@@ -255,44 +255,54 @@ export class Auth {
 
     logout() {
         if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-            console.log('🚪 Cerrando sesión y limpiando TODO...');
-            
-            // 1. Limpiar localStorage COMPLETAMENTE
-            localStorage.removeItem('pesca_token');
-            localStorage.removeItem('pesca_user');
-            localStorage.removeItem('spotToView'); // Limpiar spots temporales
-            
-            // 2. Limpiar sessionStorage
-            sessionStorage.clear();
-            
-            // 3. Limpiar estado de la aplicación
-            this.app.currentUser = null;
-            
-            // 4. ✅ LIMPIAR GRILLA SI EXISTE - CRÍTICO PARA SEGURIDAD
-            if (this.app.simpleGrid) {
-                console.log('🗑️ Limpiando grilla...');
-                this.app.simpleGrid.cleanup();
-                this.app.simpleGrid = null;
-            }
-            
-            // 5. Limpiar mapa si es necesario
-            if (this.app.mapCore && typeof this.app.mapCore.cleanup === 'function') {
-                this.app.mapCore.cleanup();
-            }
-            
-            // 6. Actualizar UI
-            this.renderAuthButtons();
-            
-            // 7. Mostrar notificación
+            this._clearSession();
             this.app.showNotification('👋 ¡Sesión cerrada correctamente!', 'success');
-            
-            // 8. Redirigir al home con delay para asegurar limpieza
             setTimeout(() => {
                 this.app.router.goTo('/home');
             }, 500);
-            
-            console.log('✅ Sesión completamente cerrada');
         }
+    }
+
+    // ✅ Logout silencioso, SIN pedir confirmación — para usar cuando el
+    // token expiró o es inválido, no cuando el usuario decide cerrar sesión.
+    // Evita el bug de mostrar "¿Estás seguro...?" dos veces.
+    forceLogout(message = '⚠️ Tu sesión expiró, iniciá sesión de nuevo') {
+        console.log('🚪 Cerrando sesión automáticamente (token inválido/expirado)...');
+        this._clearSession();
+        this.app.showNotification(message, 'warning');
+        this.app.router.goTo('/home');
+    }
+
+    _clearSession() {
+        console.log('🚪 Limpiando sesión...');
+
+        // 1. Limpiar localStorage COMPLETAMENTE
+        localStorage.removeItem('pesca_token');
+        localStorage.removeItem('pesca_user');
+        localStorage.removeItem('spotToView'); // Limpiar spots temporales
+
+        // 2. Limpiar sessionStorage
+        sessionStorage.clear();
+
+        // 3. Limpiar estado de la aplicación
+        this.app.currentUser = null;
+
+        // 4. ✅ LIMPIAR GRILLA SI EXISTE - CRÍTICO PARA SEGURIDAD
+        if (this.app.simpleGrid) {
+            console.log('🗑️ Limpiando grilla...');
+            this.app.simpleGrid.cleanup();
+            this.app.simpleGrid = null;
+        }
+
+        // 5. Limpiar mapa si es necesario
+        if (this.app.mapCore && typeof this.app.mapCore.cleanup === 'function') {
+            this.app.mapCore.cleanup();
+        }
+
+        // 6. Actualizar UI
+        this.renderAuthButtons();
+
+        console.log('✅ Sesión completamente limpiada');
     }
 
     async authenticatedFetch(endpoint, options = {}) {
@@ -310,7 +320,7 @@ export class Auth {
         const response = await fetch(`${this.API_BASE}${endpoint}`, config);
         
         if (response.status === 401) {
-            this.logout();
+            this.forceLogout();
             throw new Error('Sesión expirada');
         }
         
