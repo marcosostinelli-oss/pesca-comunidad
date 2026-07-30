@@ -15,6 +15,7 @@ import { Router } from './modules/router/router.js';
 // ✅ MÓDULOS DE AMIGOS
 import { FriendsManager } from './modules/friends/friends.js';
 import { FriendsUI } from './modules/friends/friends-ui.js';
+import { getMoonPhase } from './utils/moonPhase.js';
 
 class PescaApp {
     constructor() {
@@ -1266,6 +1267,9 @@ class PescaApp {
         console.log('🎣 Mostrando página de condiciones de pesca...', isReload ? '(recarga)' : '');
         this.hideHomeContent();
         const app = document.getElementById('app');
+
+        const luna = getMoonPhase();
+
         app.innerHTML = `
             <div class="text-center">
                 <h2>🎣 Condiciones de Pesca</h2>
@@ -1273,18 +1277,32 @@ class PescaApp {
                 
                 <div class="row mt-4">
                     <div class="col-md-4 mb-3">
-                        <div class="card fishing-card">
-                            <div class="card-body">
-                                <h5>🌊 Estado de Mareas</h5>
-                                <p>Tablas de mareas y mejores momentos</p>
+                        <div class="card fishing-card h-100">
+                            <div class="card-body text-start">
+                                <h5 class="text-center">🌊 Estado de Mareas</h5>
+                                <p>Las mareas influyen directamente en la actividad de los peces — en general, <strong>las 2 horas antes y después de la pleamar</strong> suelen ser el mejor momento para pescar.</p>
+                                <p class="small text-muted">El estado exacto de la marea depende de tu ubicación específica (mar abierto, río, estuario). Para ver el dato preciso de un lugar puntual, andá al mapa y abrí el panel de clima de ese spot.</p>
+                                <div class="text-center mt-3">
+                                    <a href="/mapa" class="btn btn-sm btn-outline-primary">Ver mareas en el mapa</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <div class="card fishing-card">
-                            <div class="card-body">
+                        <div class="card fishing-card h-100">
+                            <div class="card-body text-center">
                                 <h5>🌙 Fase Lunar</h5>
-                                <p>Influencia de la luna en la pesca</p>
+                                <div class="display-4">${luna.emoji}</div>
+                                <p class="lead mb-1">${luna.name}</p>
+                                <p class="text-muted mb-2">${luna.illumination}% de iluminación</p>
+                                <span class="badge ${luna.solunarRating === 'Alta' ? 'bg-success' : luna.solunarRating === 'Media' ? 'bg-warning text-dark' : 'bg-secondary'}">
+                                    Actividad solunar: ${luna.solunarRating}
+                                </span>
+                                <p class="small text-muted text-start mt-3 mb-2">${luna.solunarText}</p>
+                                <p class="small text-muted text-start mb-0">Próxima luna nueva en ${luna.daysToNewMoon} días · Próxima luna llena en ${luna.daysToFullMoon} días</p>
+                                <p class="small text-muted text-start mt-2 mb-0">
+                                    <i class="fas fa-info-circle"></i> La teoría solunar es una referencia tradicional (John Alden Knight, 1926); no tiene comprobación científica sólida, pero muchos pescadores la usan como guía.
+                                </p>
                             </div>
                         </div>
                     </div>
