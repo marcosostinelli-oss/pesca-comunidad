@@ -9,6 +9,7 @@ export class Router {
             '/': 'showHomePage',
             '/home': 'showHomePage',
             '/auth': 'showAuth',
+            '/reset-password': 'showResetPasswordPage',
             '/perfil': 'showProfile',
             '/mapa': 'showMapPage',
             '/clima': 'showWeatherPage',
@@ -18,7 +19,7 @@ export class Router {
         };
 
         // ✅ Rutas públicas: accesibles sin login. Todo lo demás redirige a Home.
-        this.publicRoutes = ['/', '/home', '/auth'];
+        this.publicRoutes = ['/', '/home', '/auth', '/reset-password'];
         
         // 🔧 SOPORTE PARA HASH: Detectar si estamos usando hash
         const hash = window.location.hash.substring(1);
@@ -89,14 +90,13 @@ export class Router {
         // Navegar a la ruta actual al cargar
         console.log('📍 Ruta inicial:', this.currentPath);
         
-        // 🆕 NUEVO: Forzar navegación en recarga (F5)
+        // 🔧 FIX: forzar SIEMPRE la primera navegación. this.currentPath ya viene
+        // igual a la URL actual (se lee del constructor), así que sin forzar,
+        // la comprobación "ya estamos en esta ruta" hace que nunca se llegue
+        // a renderizar nada la primera vez que se carga una página directamente
+        // por URL (por ejemplo, un link de email a /reset-password).
         setTimeout(() => {
-            if (this._isPageReload) {
-                console.log('🔄 Recarga detectada, forzando navegación inicial');
-                this.navigate(this.currentPath, false, this.useHash, true);
-            } else {
-                this.debouncedNavigate(this.currentPath, false, this.useHash);
-            }
+            this.navigate(this.currentPath, false, this.useHash, true);
         }, 100);
     }
 
@@ -408,33 +408,5 @@ export class Router {
 // ==================================================
 // ✅ INICIALIZACIÓN CON MEJOR MANEJO DE ERRORES
 // ==================================================
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('📱 DOM cargado, verificando si hay app...');
-    
-    if (window.app && !window.router) {
-        console.log('✅ Inicializando Router con app existente');
-        try {
-            window.router = new Router(window.app);
-        } catch (error) {
-            console.error('❌ Error inicializando router:', error);
-            
-            const appElement = document.getElementById('app');
-            if (appElement) {
-                appElement.innerHTML = `
-                    <div class="container mt-5">
-                        <div class="alert alert-warning">
-                            <h4>⚠️ Error de inicialización</h4>
-                            <p>El portal se está cargando. Por favor, intenta recargar la página.</p>
-                            <button onclick="location.reload()" class="btn btn-sm btn-outline-warning">
-                                Recargar página
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-    }
-});
 
 export default Router;

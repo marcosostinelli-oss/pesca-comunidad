@@ -683,6 +683,98 @@ class PescaApp {
         }
     }
 
+    // ✅ showResetPasswordPage: pantalla a la que llega el usuario desde el link del email
+    showResetPasswordPage(isReload = false) {
+        console.log('🔑 Mostrando página de restablecer contraseña...', isReload ? '(recarga)' : '');
+        this.hideHomeContent();
+        const app = document.getElementById('app');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+
+        if (!token) {
+            app.innerHTML = `
+                <div class="text-center mt-5">
+                    <h3>❌ Link inválido</h3>
+                    <p>Este link no tiene el código de recuperación. Pedí uno nuevo desde la pantalla de inicio de sesión.</p>
+                    <a href="#/auth" class="btn btn-primary">Ir a Iniciar Sesión</a>
+                </div>
+            `;
+            return;
+        }
+
+        app.innerHTML = `
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="text-center mb-3">🔑 Restablecer contraseña</h4>
+                            <form id="reset-password-form" novalidate>
+                                <div class="mb-3">
+                                    <label for="new-password" class="form-label">Nueva contraseña *</label>
+                                    <input type="password" class="form-control" id="new-password" required>
+                                    <div class="form-text">Mínimo 8 caracteres, con al menos 1 mayúscula, 1 número y 1 carácter especial ($ % & . -)</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="confirm-new-password" class="form-label">Confirmar contraseña *</label>
+                                    <input type="password" class="form-control" id="confirm-new-password" required>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="show-new-password">
+                                    <label class="form-check-label" for="show-new-password">Mostrar contraseñas</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Restablecer contraseña</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('show-new-password')?.addEventListener('change', (e) => {
+            const type = e.target.checked ? 'text' : 'password';
+            document.getElementById('new-password').type = type;
+            document.getElementById('confirm-new-password').type = type;
+        });
+
+        document.getElementById('reset-password-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const newPassword = document.getElementById('new-password').value;
+            const confirmNewPassword = document.getElementById('confirm-new-password').value;
+
+            if (newPassword.length < 8) {
+                this.showNotification('❌ La contraseña debe tener al menos 8 caracteres', 'error');
+                return;
+            }
+            if (!/[A-Z]/.test(newPassword)) {
+                this.showNotification('❌ La contraseña debe tener al menos una mayúscula', 'error');
+                return;
+            }
+            if (!/[0-9]/.test(newPassword)) {
+                this.showNotification('❌ La contraseña debe tener al menos un número', 'error');
+                return;
+            }
+            if (!/[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\/;']/.test(newPassword)) {
+                this.showNotification('❌ La contraseña debe tener al menos un carácter especial (ej: $ % & . -)', 'error');
+                return;
+            }
+            if (newPassword !== confirmNewPassword) {
+                this.showNotification('❌ Las contraseñas no coinciden', 'error');
+                return;
+            }
+
+            const result = await this.auth.confirmPasswordReset(token, newPassword);
+
+            if (result.success) {
+                this.showNotification('✅ Contraseña actualizada. Ya podés iniciar sesión.', 'success');
+                setTimeout(() => this.router.goTo('/auth'), 1500);
+            } else {
+                this.showNotification(`❌ ${result.message}`, 'error');
+            }
+        });
+    }
+
     // ✅ showProfile ACTUALIZADO CON PARÁMETRO
     showProfile(userId = null, isReload = false) {
         console.log(`👤 Mostrando perfil${userId ? ' del usuario ID: ' + userId : ' personal'}`, isReload ? '(recarga)' : '');

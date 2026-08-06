@@ -113,6 +113,9 @@ const db = new sqlite3.Database(dbPath, (err) => {
                     console.error('❌ Error creando tabla users:', err.message);
                 } else {
                     console.log('✅ Tabla users lista');
+                    // ✅ Migración: agregar columnas de recuperación de contraseña si no existen
+                    db.run(`ALTER TABLE users ADD COLUMN reset_token TEXT`, () => {});
+                    db.run(`ALTER TABLE users ADD COLUMN reset_token_expires DATETIME`, () => {});
                 }
             });
 

@@ -479,4 +479,32 @@ router.get('/user/:id', async (req, res) => {
     }
 });
 
+// POST /api/auth/forgot-password
+router.post('/forgot-password', authLimiter, async (req, res) => {
+    try {
+        const { email } = req.body;
+        const result = await auth.requestPasswordReset(email);
+        res.json(result);
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message || 'Error al procesar la solicitud'
+        });
+    }
+});
+
+// POST /api/auth/reset-password
+router.post('/reset-password', authLimiter, async (req, res) => {
+    try {
+        const { token, newPassword } = req.body;
+        const result = await auth.resetPasswordWithToken(token, newPassword);
+        res.json(result);
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message || 'Error al restablecer la contraseña'
+        });
+    }
+});
+
 module.exports = router;

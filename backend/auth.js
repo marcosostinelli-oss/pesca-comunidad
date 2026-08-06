@@ -1,7 +1,9 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 // ✅ Usar la conexión compartida y optimizada (WAL, timeouts, cache) en vez de abrir una propia
 const { dbGet, dbRun } = require('./database');
+const { sendPasswordResetEmail } = require('./email');
 
 // La clave secreta se carga desde .env (definida en server.js con dotenv.config()
 // antes de que este módulo se importe, por eso ya está disponible en process.env aquí)
@@ -187,6 +189,100 @@ class AuthBackend {
                 reject({ success: false, message: 'Token inválido' });
             }
         });
+    }
+
+    // 🔐 SOLICITAR RECUPERACIÓN DE CONTRASEÑA
+    async requestPasswordReset(email) {
+        try {
+            if (!email) {
+                throw { success: false, message: 'El email es requerido' };
+            }
+
+            const user = await dbGet('SELECT id, name FROM users WHERE email = ? AND is_active = 1', [email]);
+
+            // ⚠️ Importante: no revelamos si el email existe o no (evita que alguien
+            // use este endpoint para averiguar qué emails están registrados)
+            if (!user) {
+                console.log(`ℹ️ Solicitud de reset para email no registrado: ${email}`);
+                return { success: true, message: 'Si el email existe, vas a recibir instrucciones' };
+            }
+
+            const token = crypto.randomBytes(32).toString('hex');
+            const expires = new Date(Date.now() + 60 * 60 * 1000); // 1 hora
+
+            await dbRun(
+                'UPDATE users SET reset_token = ?, reset_token_expires = ? WHERE id = ?',
+                [token, expires.toISOString(), user.id]
+            );
+
+            const baseUrl = process.env.FRONTEND_URL || 'http://localhost:5001';
+            const resetLink = `${baseUrl}/reset-password?token=${token}`;
+
+            await sendPasswordResetEmail(email, resetLink);
+            console.log(`✅ Email de recuperación enviado a: ${email}`);
+
+            return { success: true, message: 'Si el email existe, vas a recibir instrucciones' };
+
+        } catch (error) {
+            if (error && error.success === false) {
+                throw error;
+            }
+            console.error('❌ Error solicitando reset de contraseña:', error);
+            throw { success: false, message: 'Error interno del servidor' };
+        }
+    }
+
+    // 🔐 CONFIRMAR RECUPERACIÓN DE CONTRASEÑA (con el token del email)
+    async resetPasswordWithToken(token, newPassword) {
+        try {
+            if (!token || !newPassword) {
+                throw { success: false, message: 'Token y nueva contraseña son requeridos' };
+            }
+
+            // Misma validación de fortaleza que en el registro
+            if (newPassword.length < 8) {
+                throw { success: false, message: 'La contraseña debe tener al menos 8 caracteres' };
+            }
+            if (!/[A-Z]/.test(newPassword)) {
+                throw { success: false, message: 'La contraseña debe tener al menos una letra mayúscula' };
+            }
+            if (!/[0-9]/.test(newPassword)) {
+                throw { success: false, message: 'La contraseña debe tener al menos un número' };
+            }
+            if (!/[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\/;']/.test(newPassword)) {
+                throw { success: false, message: 'La contraseña debe tener al menos un carácter especial (ej: $ % & . -)' };
+            }
+
+            const user = await dbGet(
+                'SELECT id, reset_token_expires FROM users WHERE reset_token = ?',
+                [token]
+            );
+
+            if (!user) {
+                throw { success: false, message: 'El link de recuperación es inválido o ya fue usado' };
+            }
+
+            if (new Date(user.reset_token_expires) < new Date()) {
+                throw { success: false, message: 'El link de recuperación expiró. Pedí uno nuevo.' };
+            }
+
+            const passwordHash = await bcrypt.hash(newPassword, 12);
+
+            await dbRun(
+                'UPDATE users SET password_hash = ?, reset_token = NULL, reset_token_expires = NULL WHERE id = ?',
+                [passwordHash, user.id]
+            );
+
+            console.log(`✅ Contraseña restablecida para usuario ID: ${user.id}`);
+            return { success: true, message: 'Contraseña actualizada correctamente' };
+
+        } catch (error) {
+            if (error && error.success === false) {
+                throw error;
+            }
+            console.error('❌ Error confirmando reset de contraseña:', error);
+            throw { success: false, message: 'Error interno del servidor' };
+        }
     }
 
     // 🔐 OBTENER USUARIO POR ID

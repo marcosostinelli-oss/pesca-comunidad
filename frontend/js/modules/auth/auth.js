@@ -243,13 +243,47 @@ export class Auth {
 
     async resetPassword(email) {
         try {
-            this.app.showNotification('📧 Funcionalidad en desarrollo', 'info');
+            const response = await fetch(`${this.API_BASE}/auth/forgot-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || 'Error al procesar la solicitud');
+            }
+
             return true;
-            
+
         } catch (error) {
             console.error('Error en recuperación:', error);
             this.app.showNotification('❌ Error de conexión con el servidor', 'error');
             return false;
+        }
+    }
+
+    // 🔐 Confirmar la nueva contraseña usando el token del link del email
+    async confirmPasswordReset(token, newPassword) {
+        try {
+            const response = await fetch(`${this.API_BASE}/auth/reset-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token, newPassword })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || 'No se pudo restablecer la contraseña');
+            }
+
+            return { success: true };
+
+        } catch (error) {
+            console.error('Error confirmando nueva contraseña:', error);
+            return { success: false, message: error.message };
         }
     }
 
